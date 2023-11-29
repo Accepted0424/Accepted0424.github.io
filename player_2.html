@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>范特西</title>
+        <link rel="icon" href="image\lable_icon.png" type="image/png">
+        <link rel="stylesheet" href="player.css" type="text/css">
+        <style>
+            #title{
+                margin-left: 120px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="controlBar">
+            <a href="main_website.html"><img id="backHome" src="image\button\arrow-left-2.png"></a>
+            <span id="currentSong">当前播放：暂无</span>
+            <img  id="nextBtn" class="icon" src="image\button\forward.png">
+            <img  id="playPauseBtn" class="icon" src="image\button\play.png" onclick="togglePlayPause()">
+            <img  id="prevBtn" class="icon" src="image\button\backward.png">
+        </div>
+        <div id="title"><p>范特西</p></div>
+        <img src="image\album\2.jpg">
+        <div id="intro">
+            <p>2001年9月14日<br>10首歌曲，39分钟<br>@2001 JVR MUSIC INTERNATIONAL LTD.</p>
+        </div>
+        <ol id="playlist">
+        <li data-src="music\album\fantasy\song1.flac">  爱在西元前</li>
+        <li data-src="music\album\fantasy\song2.flac">  爸我回来了</li>
+        <li data-src="music\album\fantasy\song3.flac">  简单爱</li>
+        <li data-src="music\album\fantasy\song4.flac">  忍者</li>
+        <li data-src="music\album\fantasy\song5.flac">  开不了口</li>
+        <li data-src="music\album\fantasy\song6.flac">  上海一九四三</li>
+        <li data-src="music\album\fantasy\song7.flac">  对不起</li>
+        <li data-src="music\album\fantasy\song8.flac">  威廉古堡</li>
+        <li data-src="music\album\fantasy\song9.flac">  双截棍</li>
+        <Li data-src="music\album\fantasy\song10.flac">  安静</Li>
+        </ol>
+        <audio id="audioPlayer">
+        </audio>
+        <div class="introduction">
+            <h1>专辑介绍</h1>
+            <p>回溯时代潮流，《范特西》出世前，新时代的R&B和嘻哈音乐早已席卷全球，华语乐坛也有诸如陶喆、王力宏等歌手加入这波浪潮。周杰伦也乘着这股势头而起，却更胜一筹地以国语、台语、日语交织穿梭，嘻哈、R&B、古典、摇滚，你方唱罢我登场，大胆而丰富的想象轮番上演，让《范特西》至今听来依然是一套集创造力之大成、难以望其项背的流行幻想组曲。</p><p>既以“幻想”之名，必有幻想之境。《范特西》中的每一首歌就是一颗镜头，以听觉塑造画面，带人走入古今中外的各色影像：《爱在西元前》融合R&B与嘻哈，用老式唱机的效果处理前奏，开启时空漩涡，穿越到三千七百多年前的古巴比伦；以五声音阶谱写的《上海一九四三》，民国时老上海的气息扑面而来，斑驳的岁月浮现在眼前；只用一个和弦完成的《忍者》，透过周杰伦特有的含混念白和日式意象营造音乐的临场感；而诡谲迷离的《威廉古堡》以管风琴演奏和声小调音乐，让人仿佛置身中世纪欧洲，探访吸血鬼的生活。这一切，由方文山的词、周杰伦的曲，以及林迈可、洪敬尧、钟兴民领衔的编曲实现，三者缺一不可。</p><p>。如果说首张专辑中的《娘子》是中国风加上说唱的先声，那么破天荒将重金属、古典钢琴、嘻哈、Funk等多种元素融合而成的《双截棍》，则直接将“中国风说唱”化为独属于周杰伦的音乐流派，一句怪诞的“哼哼哈兮”至今仍是人们眼中时代经典的呐喊。而《双截棍》对中国功夫的致敬、《爸我回来了》对家庭暴力的控诉，在天真烂漫的《简单爱》和钢琴主打的《安静》为代表的传统华语抒情歌之外，大大丰富了专辑的表达层次，也让专辑的文化内涵更上一层楼。</p><p>2000年后，沉睡的华语乐坛能说是被《杰伦》惊醒，再被《范特西》拉着狂奔至新的次元，大家逐渐认识到多元题材的可能，而这一切都源自于周杰伦喷薄而出的才情和天马行空的创作。对周杰伦本人而言，《范特西》开启了他创作的范式，一套成熟的方法论就此确立。如今看来，这张专辑绝对是周杰伦音乐生涯里的高峰，也成为无数音乐人相继模仿，却难以逾越的时代标杆之作。</p>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const playlist = document.getElementById('playlist');
+                const audioPlayer = document.getElementById('audioPlayer');
+                const prevBtn = document.getElementById('prevBtn');
+                const playPauseBtn = document.getElementById('playPauseBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const currentSongElement = document.getElementById('currentSong');
+                let currentTrackIndex = 0;
+    
+                function playCurrentTrack() {
+                    const currentTrack = playlist.children[currentTrackIndex];
+                    if (currentTrack && currentTrack.dataset.src) {
+                        const audioSource = currentTrack.dataset.src;
+                        audioPlayer.src = audioSource;
+                        audioPlayer.play();
+                    const currentSongTitle = currentTrack.textContent.trim();
+
+                    currentSongElement.textContent = `当前播放：${currentSongTitle}`;
+
+                    }
+                }
+    
+                playlist.addEventListener('click', function (event) {
+                    const target = event.target;
+                    if (target.tagName === 'LI' && target.dataset.src) {
+                        currentTrackIndex = Array.from(playlist.children).indexOf(target);
+                        playCurrentTrack();
+                    }
+                });
+    
+                prevBtn.addEventListener('click', function () {
+                    currentTrackIndex = (currentTrackIndex - 1 + playlist.children.length) % playlist.children.length;
+                    playCurrentTrack();
+                });
+    
+                playPauseBtn.addEventListener('click', function () {
+                    if (audioPlayer.paused) {
+                        audioPlayer.play();
+                        playPauseBtn.textContent = 'Pause';
+                    } else {
+                        audioPlayer.pause();
+                        playPauseBtn.textContent = 'Play';
+                    }
+                });
+    
+                nextBtn.addEventListener('click', function () {
+                    currentTrackIndex = (currentTrackIndex + 1) % playlist.children.length;
+                    playCurrentTrack();
+                });
+            });
+        </script>
+    </body>
+</html>

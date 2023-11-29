@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>叶惠美</title>
+        <link rel="icon" href="image\lable_icon.png" type="image/png">
+        <link rel="stylesheet" href="player.css" type="text/css">
+        <style>
+            #title{
+                margin-left: 120px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="controlBar">
+            <a href="main_website.html"><img id="backHome" src="image\button\arrow-left-2.png"></a>
+            <span id="currentSong">当前播放：暂无</span>
+            <img  id="nextBtn" class="icon" src="image\button\forward.png">
+            <img  id="playPauseBtn" class="icon" src="image\button\play.png" onclick="togglePlayPause()">
+            <img  id="prevBtn" class="icon" src="image\button\backward.png">
+        </div>
+        <div id="title"><p>叶惠美</p></div>
+        <img src="image\album\4.jpg">
+        <div id="intro">
+            <p>2003年7月31日<br>11首歌曲，48分钟<br>@2003 JVR MUSIC INTERNATIONAL LTD.</p>
+        </div>
+        <ol id="playlist">
+        <li data-src="music\album\yehuimei\song1.flac">  以父之名</li>
+        <li data-src="music\album\yehuimei\song2.flac">  懦夫</li>
+        <li data-src="music\album\yehuimei\song3.flac">  晴天</li>
+        <li data-src="music\album\yehuimei\song4.flac">  三年二班</li>
+        <li data-src="music\album\yehuimei\song5.flac">  东风破</li>
+        <li data-src="music\album\yehuimei\song6.flac">  你听得到</li>
+        <li data-src="music\album\yehuimei\song7.flac">  同一种调调</li>
+        <li data-src="music\album\yehuimei\song8.flac">  她的睫毛</li>
+        <li data-src="music\album\yehuimei\song9.flac">  爱情悬崖</li>
+        <Li data-src="music\album\yehuimei\song10.flac">  梯田</Li>
+        <Li data-src="music\album\yehuimei\song11.flac">  双刀</Li>
+        </ol>
+        <audio id="audioPlayer">
+        </audio>
+        <div class="introduction">
+            <h1>专辑介绍</h1>
+            <p>从“以父之名”判决罪恶的杀手，到等待“晴天”的短暂爱恋，再到奏响一曲“东风破”以纪念离人……周杰伦穿梭时空之间，将复古与现代巧妙融合，创造出时下流行乐不曾有的新元素。以最敬爱的母亲姓名命名专辑，主打歌《以父之名》又与之诙谐呼应，但实则其是以电影《教父》为灵感，探讨教父荣耀背后的孤独，复古的音乐钢琴辅以意大利念白，加之融入歌剧元素，塑造出的黑暗哥特曲风一度冲击着主流的流行乐，而新兴鬼才黄俊郎的词作更是锦上添花。禁毒主题的《懦夫》中，“周式”说唱搭配重金属摇滚风格，则再次突围流行乐的风格边界。方文山作词的《东风破》以唐诗宋词入歌，配上二胡与琵琶弹奏的古曲小调，缱绻的旋律扣人心弦，这一首创的中国风歌曲在流行乐领域开凿先河，至今仍是中国风歌曲难以逾越的标杆。</p>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const playlist = document.getElementById('playlist');
+                const audioPlayer = document.getElementById('audioPlayer');
+                const prevBtn = document.getElementById('prevBtn');
+                const playPauseBtn = document.getElementById('playPauseBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const currentSongElement = document.getElementById('currentSong');
+                let currentTrackIndex = 0;
+    
+                function playCurrentTrack() {
+                    const currentTrack = playlist.children[currentTrackIndex];
+                    if (currentTrack && currentTrack.dataset.src) {
+                        const audioSource = currentTrack.dataset.src;
+                        audioPlayer.src = audioSource;
+                        audioPlayer.play();
+                    const currentSongTitle = currentTrack.textContent.trim();
+
+                    currentSongElement.textContent = `当前播放：${currentSongTitle}`;
+
+                    }
+                }
+    
+                playlist.addEventListener('click', function (event) {
+                    const target = event.target;
+                    if (target.tagName === 'LI' && target.dataset.src) {
+                        currentTrackIndex = Array.from(playlist.children).indexOf(target);
+                        playCurrentTrack();
+                    }
+                });
+    
+                prevBtn.addEventListener('click', function () {
+                    currentTrackIndex = (currentTrackIndex - 1 + playlist.children.length) % playlist.children.length;
+                    playCurrentTrack();
+                });
+    
+                playPauseBtn.addEventListener('click', function () {
+                    if (audioPlayer.paused) {
+                        audioPlayer.play();
+                        playPauseBtn.textContent = 'Pause';
+                    } else {
+                        audioPlayer.pause();
+                        playPauseBtn.textContent = 'Play';
+                    }
+                });
+    
+                nextBtn.addEventListener('click', function () {
+                    currentTrackIndex = (currentTrackIndex + 1) % playlist.children.length;
+                    playCurrentTrack();
+                });
+            });
+        </script>
+    </body>
+
+</html>

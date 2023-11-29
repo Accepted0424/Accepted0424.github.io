@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>八度空间</title>
+        <link rel="icon" href="image\lable_icon.png" type="image/png">
+        <link rel="stylesheet" href="player.css" type="text/css">
+        <style>
+            #title{
+                margin-left: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="controlBar">
+            <a href="main_website.html"><img id="backHome" src="image\button\arrow-left-2.png"></a>
+            <span id="currentSong">当前播放：暂无</span>
+            <img  id="nextBtn" class="icon" src="image\button\forward.png">
+            <img  id="playPauseBtn" class="icon" src="image\button\play.png" onclick="togglePlayPause()">
+            <img  id="prevBtn" class="icon" src="image\button\backward.png">
+        </div>
+        <div id="title"><p>八度空间</p></div>
+        <img src="image\album\3.jpg">
+        <div id="intro">
+            <p>2002年7月18日<br>10首歌曲，43分钟<br>@2002 JVR MUSIC INTERNATIONAL LTD.</p>
+        </div>
+        <ol id="playlist">
+        <li data-src="music\album\badukongjian\song1.flac">  半兽人</li>
+        <li data-src="music\album\badukongjian\song2.flac">  半岛铁盒</li>
+        <li data-src="music\album\badukongjian\song3.flac">  暗号</li>
+        <li data-src="music\album\badukongjian\song4.flac">  龙拳</li>
+        <li data-src="music\album\badukongjian\song5.flac">  火车叨位去</li>
+        <li data-src="music\album\badukongjian\song6.flac">  分裂</li>
+        <li data-src="music\album\badukongjian\song7.flac">  爷爷泡的茶</li>
+        <li data-src="music\album\badukongjian\song8.flac">  回到过去</li>
+        <li data-src="music\album\badukongjian\song9.flac">  米兰的小铁匠</li>
+        <Li data-src="music\album\badukongjian\song10.flac">  最后的战役</Li>
+        </ol>
+        <audio id="audioPlayer">
+        </audio>
+        <div class="introduction">
+            <h1>专辑介绍</h1>
+            <p>歌曲可以拥有与电影媲美的叙事性吗？在短短四分钟左右的歌曲里，43分钟的专辑《八度空间》中，周杰伦用旺盛的创作力和狂想尝试构建出这样的“空间”。“八度空间”意指西方的八度音阶，在看似局限的音乐空间中，周杰伦用他平时从电影和MV得来的灵感，给每首歌曲赋予了情节，打造没有维度限制的音乐异想世界。</p>
+            <p>在发行第三张专辑《八度空间》之前，周杰伦已经在音乐市场红出了一片天地，他在《八度空间》中大量使用前两张专辑成功的公式，曲目选用的音乐手法与《范特西》十分类似，而这一时期的周杰伦对于旋律、题材以及各类曲风元素的驾驭也更加炉火纯青。虽是爆红后的又一张专辑，但他依旧以创作者的身份在专辑创作中占了大量篇幅，包揽每首歌曲的作曲和制作，并搭档方文山、许世昌等词人在主题上进行了又一轮自我探索。“爷爷泡的茶，有一种味道叫做家”，这句话反复出现在《爷爷泡的茶》中，将视角从“茶”切到“家”，穿插着中国历史典故，“爷爷说的话”似乎在耳边回响。闽南语的《火车叨位去》则搭载了他的寻根之旅，如此强的乡土意识在此之前从未出现过，对比周杰伦后期的专辑主题，这些乡土情怀十分难能可贵。</p>
+            <p>专辑开篇的《半兽人》来自《魔兽争霸III》的游戏内容，采样游戏里行军步伐与机枪的音效，管弦乐与说唱同频率燃起“兽族”之魂，刻下了那个年代特有的印记。主打曲《半岛铁盒》借物抒情，以原声吉他和铙钹为主的乐器勾勒出简单而浪漫的旋律，与清新深情的《暗号》《回到过去》共同成为走入人心的“周氏”抒情经典。结合说唱、摇滚的《龙拳》，是继《娘子》《双节棍》之后的又一首染指中国风的创意作品，以中国功夫为灵感，糅合中国文化的唱词配合强有力的“宫廷式鼓点”，来势汹汹。《米兰的小铁匠》则将叙事画面从中国转移至意大利，用异国情调的中快板音符勾勒出一段东欧的童话故事。</p>
+            <p>家庭、家乡、爱情、中国功夫、游戏故事，这些主题一一走过后，周杰伦最后落脚在了“友谊”，《最后的战役》就是为纪念他与刘畊宏之间的友谊而创作。周杰伦和方文山将兄弟情的阵地放在战场，MV也还原出他脑中的战争场面，长达14分钟的微电影版MV预演了他未来的电影梦，而在当时，没有人这样拍MV。为了还原他心中的故事画面，周杰伦一行专程赶到欧洲拍摄，分别在意大利、捷克和法国等国拍摄了专辑中四支单曲的MV。</p>
+            <p>《八度空间》总体上延续了前两张专辑中奠定的编曲基调，个人作品风格也愈加成熟，令周杰伦再度势如破竹，拿下多项大奖，缔造华语乐坛新纪录的同时，也以销量给当年饱受盗版之苦的唱片行业带来希望。而先前的“杰”出成绩，更让《八度空间》得到了主流流行乐的宣发待遇，得以进一步跨出台湾，影响世界各地的听众。</p>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const playlist = document.getElementById('playlist');
+                const audioPlayer = document.getElementById('audioPlayer');
+                const prevBtn = document.getElementById('prevBtn');
+                const playPauseBtn = document.getElementById('playPauseBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const currentSongElement = document.getElementById('currentSong');
+                let currentTrackIndex = 0;
+    
+                function playCurrentTrack() {
+                    const currentTrack = playlist.children[currentTrackIndex];
+                    if (currentTrack && currentTrack.dataset.src) {
+                        const audioSource = currentTrack.dataset.src;
+                        audioPlayer.src = audioSource;
+                        audioPlayer.play();
+                    const currentSongTitle = currentTrack.textContent.trim();
+
+                    currentSongElement.textContent = `当前播放：${currentSongTitle}`;
+
+                    }
+                }
+    
+                playlist.addEventListener('click', function (event) {
+                    const target = event.target;
+                    if (target.tagName === 'LI' && target.dataset.src) {
+                        currentTrackIndex = Array.from(playlist.children).indexOf(target);
+                        playCurrentTrack();
+                    }
+                });
+    
+                prevBtn.addEventListener('click', function () {
+                    currentTrackIndex = (currentTrackIndex - 1 + playlist.children.length) % playlist.children.length;
+                    playCurrentTrack();
+                });
+    
+                playPauseBtn.addEventListener('click', function () {
+                    if (audioPlayer.paused) {
+                        audioPlayer.play();
+                        playPauseBtn.textContent = 'Pause';
+                    } else {
+                        audioPlayer.pause();
+                        playPauseBtn.textContent = 'Play';
+                    }
+                });
+    
+                nextBtn.addEventListener('click', function () {
+                    currentTrackIndex = (currentTrackIndex + 1) % playlist.children.length;
+                    playCurrentTrack();
+                });
+            });
+        </script>
+    </body>
+</html>

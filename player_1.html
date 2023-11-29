@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>杰伦</title>
+    <link rel="icon" href="image\lable_icon.png" type="image/png">
+    <link rel="stylesheet" href="player.css" type="text/css">
+</head>
+
+<body>
+    <div class="controlBar">
+        <a href="main_website.html"><img id="backHome" src="image\button\arrow-left-2.png"></a>
+        <span id="currentSong">当前播放：暂无</span>
+        <img id="nextBtn" class="icon" src="image\button\forward.png">
+        <img id="playPauseBtn" class="icon" src="image\button\play.png" onclick="togglePlayPause()">
+        <img id="prevBtn" class="icon" src="image\button\backward.png">
+    </div>
+    <div id="title">
+        <p>杰伦</p>
+    </div>
+    <a href="lyrics-scrolling-master\Jielun.html" target="_blank"> <img id="albumPic" src="image\album\1.jpg"></a>
+    <div id="intro">
+        <p>2000年11月6日<br>10首歌曲，43分钟<br>@2000 JVR MUSIC INTERNATIONAL LTD.</p>
+    </div>
+    <ol id="playlist">
+        <li data-src="music\album\jielun\song1.flac"> 可爱女人</li>
+        <li data-src="music\album\jielun\song2.flac"> 完美主义</li>
+        <li data-src="music\album\jielun\song3.flac"> 星晴</li>
+        <li data-src="music\album\jielun\song4.flac"> 娘子</li>
+        <li data-src="music\album\jielun\song5.flac"> 斗牛</li>
+        <li data-src="music\album\jielun\song6.flac"> 黑色幽默</li>
+        <li data-src="music\album\jielun\song7.flac"> 伊斯坦堡</li>
+        <li data-src="music\album\jielun\song8.flac"> 印第安老斑鸠</li>
+        <li data-src="music\album\jielun\song9.flac"> 龙卷风</li>
+        <Li data-src="music\album\jielun\song10.flac"> 反方向的钟</Li>
+    </ol>
+    <audio id="audioPlayer">
+    </audio>
+    <div class="introduction">
+        <h1>专辑介绍</h1>
+        <p>千禧年世纪更迭之际，R&B在华语乐坛逐日兴起，众多歌手共同推动着中文流行乐风的悄然改变。此时此刻，一张名为《杰伦》的专辑也从台湾阿尔发唱片横空出世，那些在第一时间买下专辑的听众，有幸目睹了乐坛揭开“唱作新世代”的大幕。专辑中十首歌不落窠臼，诸多新鲜音乐元素和歌词主题，凸显出这位首发新人独特的个人印记。“周杰伦”这个名字也随着作品的新鲜感和冲击力，闯入了大众视线。
+        </p>
+        <p>1997年，18岁的他被吴宗宪慧眼识英，从选秀舞台转身进入唱片公司做助理，开始三年幕后历练。童年时代的钢琴练习和高中时期的音乐学习，加上从国内外所爱艺人身上汲取的营养，让周杰伦创作起流行乐来得心应手。</p>
+        <p>在《杰伦》诞生期间，他在阿尔发录音棚内潜心闭关创作。在结识了同样怀揣才华，却还没有开始大展拳脚的方文山后，两人碰撞出了许多灵感火花。《杰伦》为未来两人亲密无间的合作打下第一块基石，而两位鬼才搭档也开始创作出大量“反常规”的华语流行歌：把打篮球写出内心戏、充满battle感的嘻哈单曲《斗牛》，主题颇有异趣、酸性爵士风的《印地安老斑鸠》，这些新鲜声音为乐坛划下不同寻常的光亮弧线。而周杰伦的古典乐素养，也从飘逸着巴洛克美学的弦乐和大键琴旋律中向外展现。
+        </p>
+        <p>和他的许多经典曲目一样，古风文化、嘻哈功夫与创新，时空穿梭感，招牌情歌，这几大特色从首专《杰伦》中都已开始铺垫。其中的《娘子》完美体现了周杰伦对中文说唱的独到理解——不仅在那个年代就创作出了中文旋律说唱，更突破了中文声调对说唱表现的限制，影响力绵延至今。而《娘子》中满满的古风意境，也是他与方文山二人标志性“中国风”的开场，在周杰伦以传统文化为主线的创作分支上有着开宗立派的非凡意义。另外，从情歌这条创作脉络上看，这张专辑的成绩也让人感到非常惊艳。与徐若瑄合作的《可爱女人》《龙卷风》都成为传唱最广的中文单曲之一。
+        </p>
+        <p>机缘加上多年历练，让《杰伦》一出手便成为了启发华语乐坛创意的重要作品，在当时乐坛还处于“后知后觉”的时候，专辑封面上这位腼腆的卷发男孩，已在酝酿更大的精彩，朝着未来一代新“天王”的模样疾速成长。</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const playlist = document.getElementById('playlist');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const prevBtn = document.getElementById('prevBtn');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const currentSongElement = document.getElementById('currentSong');
+            let currentTrackIndex = 0;
+            function playCurrentTrack() {
+                const currentTrack = playlist.children[currentTrackIndex];
+                if (currentTrack && currentTrack.dataset.src) {
+                    const audioSource = currentTrack.dataset.src;
+                    audioPlayer.src = audioSource;
+                    audioPlayer.play();
+                    const currentSongTitle = currentTrack.textContent.trim();
+
+                    currentSongElement.textContent = `当前播放：${currentSongTitle}`;
+
+                }
+            }
+
+            audioPlayer.addEventListener('play',function(){
+                playPauseBtn.src='image/button/pause.png'
+            });
+            playlist.addEventListener('click', function (event) {
+                const target = event.target;
+                if (target.tagName === 'LI' && target.dataset.src) {
+                    currentTrackIndex = Array.from(playlist.children).indexOf(target);
+                    playCurrentTrack();
+                }
+            });
+
+            prevBtn.addEventListener('click', function () {
+                currentTrackIndex = (currentTrackIndex - 1 + playlist.children.length) % playlist.children.length;
+                playCurrentTrack();
+            });
+
+            playPauseBtn.addEventListener('click', function () {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playPauseBtn.src='image/button/pause.png'
+                } else {
+                    audioPlayer.pause();
+                    playPauseBtn.src='image/button/play.png'
+                }
+            });
+
+            nextBtn.addEventListener('click', function () {
+                currentTrackIndex = (currentTrackIndex + 1) % playlist.children.length;
+                playCurrentTrack();
+            });
+        });
+    </script>
+</body>
+
+</html>

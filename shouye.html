@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Choose</title>
+  <link rel="stylesheet" href="css/style-shouye.css">
+  <link rel="stylesheet" type="text/css" href="css/no.css" />
+  <style>
+  body {
+    margin: 0;
+    padding: 0;
+    /* 设置flex布局 */
+    display: flex;
+    /* 在主轴上居中 */
+    justify-content: center;
+    /* 在测轴上居中 */
+    align-items: center;
+    height: 100vh;
+    /*background-color: #000000;*/
+    /* 透视 */
+    perspective: 900px;
+  }
+  </style>
+</head>
+<body background="image/background9.jpg" style="background-size:100% 100%;">
+  <div class="blocks">
+    <!--<div class="block">
+      <img src="image/ph1.jpg" />
+    </div>
+  
+    <div class="block">
+      <img src="image/ph2.jpg"/>
+    </div>-->
+  
+    <div class="block">
+      <a href="main_website.html"><img src="image/show1.jpg"/></a>
+      <p>周杰伦</p>
+    </div>
+  
+    <div class="block">
+      <a href="main_website_ts.html"><img src="image/showTs1.jpeg"/></a>
+      <p>Taylor Swift</p>
+    </div>
+
+    <div class="block">
+      <a href="main_website_xs.html"><img src="image/showXs2.jpeg"/></a>
+      <p>许嵩</p>
+    </div>
+
+    <!--<div class="block">
+      <img src="image/ph6.jpg"/>
+    </div>-->
+
+  <script type="text/javascript">
+    // Below code only for demo purposes
+    // You can remove the `&.hover,` class from the CSS
+    // if you don't need it 
+    $(document).ready(function() {
+      var count = 0;
+      var blocks = $(".block");
+  
+      var testEffect = setInterval(function() {
+      $(blocks[count - 1]).removeClass("hover");
+      $(blocks[count]).addClass("hover");
+      count++;
+      if (count > 4) clearInterval(testEffect);
+      }, 800);
+    });
+  </script>
+  
+  </body>
+</html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .block p{
+      font-size: 30px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+    }
+ 
+    .button {
+      text-decoration: none;
+      position: absolute;
+      left: 90%;
+      top: -70%;
+      /* 右上 */
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+      background-size: 400%;
+      width: 250px;
+      height: 100px;
+      color: #fff;
+      line-height: 100px;
+      text-align: center;
+      /*text-transform: uppercase;*/
+      border-radius: 50px;
+      z-index: 1;
+    }
+ 
+    .button::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      right: -5px;
+      top: -5px;
+      bottom: -5px;
+      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+      background-size: 400%;
+      border-radius: 50px;
+      filter: blur(20px);
+      z-index: -1;
+    }
+ 
+    .button:hover::before {
+      animation: sun 8s infinite;
+    }
+ 
+    .button:hover {
+      animation: sun 8s infinite;
+    }
+ 
+    @keyframes sun {
+      100% {
+        background-position: -400% 0;
+      }
+    }
+    a{
+      text-decoration: none;
+      color: #fff;
+    }
+    /*.footer{
+      position:absolute;
+      width:80%;
+      height:10px;
+      left:10%;
+      top:90%;
+      color:#fff
+    }*/
+  </style>
+</head>
+ 
+<div class="button" style="text-align:center;"><a href="comments.html">Add what you like</a></div>
+<!--<div class="footer">This list isn't meant to be comprehensive (by all means, add your own suggestions in the comments section),I'm just taking an opportunity to highlight my personal favorites.</div>-->
+
+ 

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            color:#fff;
+            box-sizing:border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(./mainpage.jpg);
+        }
+        .messages{
+            margin-top: 100px;
+            width: 1200px;
+            padding: 50px 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(255,255,255,0.43);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px #00000020;
+        }
+        .form{
+            display: flex;
+            justify-content: center;
+            position: relative;
+            flex-direction: column;
+            width:100%;
+            padding-bottom: 70px;
+        }
+        input:focus,
+        textarea:focus{
+            outline: none;
+        }
+        input,
+        textarea{
+            border: none;
+            color: #000;
+            margin-bottom: 40px;
+            font:900 40px '';
+            border-radius: 10px;
+            padding: 30px;
+        }
+        #username{
+            height:90px;
+        }
+        #message{
+            height:200px;
+        }
+        .message h1{
+            width: 100%;
+            text-align: left;
+            margin-bottom: 70px;
+            font-size: 140px;
+            background-image:url(image/mainpage.jpg);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing:10px;
+        }
+        #submitBtn{
+            position: absolute;
+            right:0;
+            bottom:0;
+            background-image: linear-gradient(90deg,rgb(148, 205, 205) 0%,#6ca5df 100%);
+            border: none;
+            font-size: 30px;
+            width:200px;
+            height:70px;
+            border-radius:50PX ;
+
+        }
+        #messageBoard{
+            width:100%;
+            text-align: left;
+        }
+        @keyframes messageFadeIn{
+            to{
+                opacity:1;
+            }
+        }
+        .message{
+            width:100%;
+            margin: 10px;
+            padding: 10px;
+            opacity: 0;
+            animation: messageFadeIn 0.5s ease forwards;
+            background-image: url(image/mainpage.jpg);
+            background-color: #fff;
+            margin: 70px 0;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px #00000026;
+            text-shadow: 0px 0px 20px #ffffff;
+        }
+        .message-info{
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 36px;
+            position: relative;
+        }
+        .info{
+            transform: translateY(-30px);
+        }
+        .info img{
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 10px #fff solid;
+        }
+        strong {
+            position: absolute;
+            width: 800px;
+            letter-spacing: 3px;
+            top:70px;
+            left: 170px;
+        }
+        .message-info span{
+            position: absolute;
+            top: 10px;
+            right:10px;
+        }
+
+        .content{
+            font-size:36px;
+            margin: 30px;
+            width: 95%;
+        }
+    </style>
+</head>
+<body>
+    <div class="messages">
+        <h1>留言板</h1>
+        <div class="form">
+            <input type="text" id="username"placeholder="用户名">
+            <textarea id="message" placeholder="留言内容"></textarea>
+            <button id="submitBtn">留言</button>
+        </div>
+        <div id="messageBoard">
+            <div class="message">
+                <div class="message-info">
+                    <div class="info">
+                        <img src="image/show1.jpg" width="50px" height="50px">
+                        <strong></strong>
+                    </div>
+                    <span>发布于:2023/11/12 22:30:00</span>
+                </div>
+                <div class="content">说说你的看法吧~</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('submitBtn').addEventListener('click',function(){
+        var username=document.getElementById('username').value;
+        var message=document.getElementById('message').value;
+        if(message==='')
+        {
+            alert('请输入内容');
+            return ;
+        }
+        if(username==='')
+        {
+            username='匿名';
+        }
+        var messageBoard=document.getElementById('messageBoard');
+        var newMessage=document.createElement('div');
+        newMessage.classList.add('message');
+        newMessage.innerHTML='<div class="message-info"><div class="info"><img src="image/album/1.jpg"><strong>'
+        +username+'</strong></div><span>发布于:' +getCurrentTime()+                                         
+            '</span></div><div class="content">'+message+'</div>';
+        messageBoard.insertBefore(newMessage,messageBoard.firstChild);
+        document.getElementById('username').value='';
+        document.getElementById('message').value='';                                                                                                                                                       
+    });          
+    function getCurrentTime(){
+        var now =new Date();               
+        var year =now.getFullYear();
+        var month=('0'+(now.getMonth()+1)).slice(-2);
+        var day =('0'+now.getDate()).slice(-2);
+        var hours=('0'+now.getHours()).slice(-2);
+        var minutes=('0'+now.getMinutes()).slice(-2);
+        var seconds=('0'+now.getSeconds()).slice(-2);
+        return year+'/'+month+'/'+day+'/'+hours+':'+minutes+':'+seconds;
+    }
+</script>
+
+<style>
+    body{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        min-height:100vh;
+        background-image:url(image/mainpage.jpg);
+        background-size: cover;
+    }
+    .button{
+        display:inline-block;
+        position:relative;
+        z-index:0;
+        overflow:hidden;
+        text-decoration:none;
+        font-family:sans-serif;
+        font-weight:600;
+        font-size:2em;
+        padding:0.75em 1em;
+        color:rgb(142, 212, 229);
+        border:0.15em solid rgb(241, 244, 244);
+        border-radius:2em;
+        transition:4s;
+    }
+    .button:before{
+        content:"";
+        position :absolute;
+        top:-1.5em;
+        z-index:-1;
+        width:200%;
+        aspect-ratio:1;
+        border: none;
+        border-radius:40%;
+        background-color:rgba(124, 149, 149, 0.25)5.25;
+        transition:4s;
+    }
+    .button:after{
+        content:"";
+        position :absolute;
+        top:-1.5em;
+        z-index:-1;
+        width:200%;
+        aspect-ratio:1;
+        border: none;
+        border-radius:40%;
+        background-color:rgba(0,0,255,0.25);
+        transition:4s;
+    }
+    .button before{
+        left:-80%;
+        transform: translate3d(0,5em,0) rotate(-340deg);
+    }
+    .button:after{
+        right:-80%;
+        transform:translate3d(0,5em,0) rotate(390deg);
+    }
+    .button:hover,
+    .button:focus{
+       color:#e6e9f0;
+    }
+    .button:hover:before,
+    .button:hover:after,
+    .button:focus:before
+    {
+        transform:none;
+        background-color:rgba(0,0,255,0.25);
+    }
+    .button:focus:after{
+        transform:none;
+        background-color:rgba(0,0,255,0.25);
+    }
+</style>
+</head>
+<body>
+<a href="shouye.html"class="button">返回</a>
+</body>
+</html>
