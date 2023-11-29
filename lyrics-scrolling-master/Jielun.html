@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./asset/iconfont/iconfont.css">
+    <title>周杰伦</title>
+    <link rel="icon" href=".. /image\lable_icon.png" type="image/png">
+    <style>
+    body {
+         margin: 0;
+        padding: 0;
+        background: url("../image/album/1.jpg");
+        background-attachment: fixed;
+        background-size: cover;
+        font-family: Moderat;
+        min-height: 100%;
+        }
+</style>
+</head>
+
+<body>
+
+    <div class="music-player-wrapper">
+        <div class="music-player">
+            <audio src="..\music\album\jielun\song1.flac" id="audio"></audio>
+            <div class="top-bar">
+                <span class="iconfont icon-24gl-volumeMiddle"></span>
+                <div class="progress-bar sound-progress-bar">
+                    <span class="duration-bar sound-duration"></span>
+                    <span class="progress sound-progress">
+                        <span class="round"></span>
+                    </span>
+                </div>
+                <span class="iconfont icon-geciweidianji"></span>
+            </div>
+            <div class="music-info">
+                <div class="info-left">
+                    <img class="music-img" src="..\image\album\1.jpg" alt="">
+                    <div class="lyric-mask">
+                        <div class="lyric-wrapper">
+                            <ul id="lyc-content"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-right">
+                    <div class="music-name">
+                        <span class="name">可爱女人</span>
+                        <span class="musician">周杰伦</span>
+                    </div>
+                    <div class="playback-setting">
+                        <span class="iconfont icon-next previous"></span>
+                        <span class="iconfont icon-bofang"></span>
+                        <span class="iconfont icon-zanting1"></span>
+                        <span class="iconfont icon-next next"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar player-progress-bar">
+                <span class="duration-bar play-duration"></span>
+                <span class="progress player-progress"></span>
+                <span class="time">03:59</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    //dom 元素
+    const audio = document.getElementById('audio')
+    const playBtn = document.querySelector('.icon-bofang')
+    const zanTingBtn = document.querySelector('.icon-zanting1')
+    const previousBtn = document.querySelector('.previous')
+    const nextBtn = document.querySelector('.next')
+    const playerProgress = document.querySelector('.player-progress')
+    const timeStr = document.querySelector('.time')
+    const playDurationBar = document.querySelector('.play-duration')
+    const soundDuration = document.querySelector('.sound-duration')
+    const soundProgress = document.querySelector('.sound-progress')
+    const round = document.querySelector('.round')
+    const playerProgressBar = document.querySelector('.player-progress-bar')
+    const soundProgressBar = document.querySelector('.sound-progress-bar')
+    const musicImg = document.querySelector('.music-img')
+    const musician = document.querySelector('.musician')
+    const musicName = document.querySelector('.name')
+    // 歌词滚动wrapper
+    const lycContent = document.getElementById('lyc-content')
+    const lyricWrapper = document.querySelector('.lyric-wrapper')
+    const lycShow = document.querySelector('.icon-geciweidianji')
+    const musicInfo = document.querySelector('.music-info')
+    const infoLeft = document.querySelector('.info-left')
+    const lyricMask = document.querySelector('.lyric-mask')
+
+    let showLycFlag = false
+
+    //变量
+    let timeArr
+    let lrcArr
+    let insertLrcStr
+    let duration, nowPlayIndex = 0
+    const musicList = [{
+        musicSrc: '../music/album/jielun/song1.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '可爱女人',
+        lyric:`[00:04.07]可爱女人
+[00:07.57]作词：徐若瑄 作曲：周杰伦
+[00:10.35]演唱：周杰伦
+[00:29.23]想要有直升机
+[00:32.88]想要和你飞到宇宙去
+[00:36.40]想要和你融化在一起
+[00:39.96]融化在银河里
+[00:42.19]我每天每天每天在想想想想着你
+[00:46.59]这样的甜蜜
+[00:47.78]让我开始相信命运
+[00:51.26]感谢地心引力
+[00:53.88]让我碰到你
+[00:57.03]漂亮的让我面红的可爱女人
+[01:01.20]温柔的让我心疼的可爱女人
+[01:04.70]透明的让我感动的可爱女人
+[01:08.15]坏坏的让我疯狂的可爱女人
+[01:11.91]漂亮的让我面红的可爱女人
+[01:15.29]温柔的让我心疼的可爱女人
+[01:18.85]透明的让我感动的可爱女人
+[01:22.40]坏坏的让我疯狂的可爱女人
+[01:54.46]想要有直升机
+[01:57.91]想要和你飞到宇宙去
+[02:01.45]想要和你融化在一起
+[02:05.05]融化在银河里
+[02:07.34]我每天每天每天在想想想想着你
+[02:11.65]这样的甜蜜
+[02:12.89]让我开始相信命运
+[02:16.28]感谢地心引力
+[02:18.91]让我碰到你
+[02:22.39]漂亮的让我面红的可爱女人
+[02:26.24]温柔的让我心疼的可爱女人
+[02:29.74]透明的让我感动的可爱女人
+[02:33.25]坏坏的让我疯狂的可爱女人
+[02:37.09]漂亮的让我面红的可爱女人
+[02:40.53]温柔的让我心疼的可爱女人
+[02:43.86]透明的让我感动的可爱女人
+[02:47.49]坏坏的让我疯狂的可爱女人
+[02:51.18]世界这样大而我而我只是只小小小的蚂蚁
+[02:58.35]但我要尽全力全力全力保护你
+[03:05.28]漂亮的让我面红的可爱女人
+[03:08.67]温柔的让我心疼的可爱女人
+[03:12.21]透明的让我感动的可爱女人
+[03:15.68]坏坏的让我疯狂的可爱女人
+[03:19.75]漂亮的让我面红的可爱女人
+[03:22.97]温柔的让我心疼的可爱女人
+[03:26.52]透明的让我感动的可爱女人
+[03:29.96]坏坏的让我疯狂的可爱女人
+[03:33.60]漂亮的让我面红的可爱女人
+[03:37.01]温柔的让我心疼的可爱女人
+[03:40.57]透明的让我感动的可爱女人
+[03:44.07]坏坏的让我疯狂的可爱女人
+[03:47.68]漂亮的让我面红的可爱女人
+[03:51.19]温柔的让我心疼的可爱女人
+[03:54.72]透明的让我感动的`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song2.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '完美主义',
+        lyric:`[00:01.92]完美主义
+[00:03.92]作词：方文山 作曲：周杰伦
+[00:05.92]演唱：周杰伦
+[00:29.92]如果说怀疑 可以造句
+[00:32.55]如果说分离 能够翻译
+[00:35.19]如果这一切 真的可以
+[00:37.62]我想要将我的寂寞封闭
+[00:40.58]然后在这里 不限日期
+[00:43.09]然后将过去 慢慢温习
+[00:45.79]让我爱上你 那场悲剧
+[00:48.22]是你完美演出的一场戏
+[00:51.22]宁愿心碎哭泣 再狠狠忘记 你爱过我的证据
+[00:56.36]让晶莹的泪滴 闪烁成回忆 伤人的美丽
+[01:01.85]你的完美主义 太彻底
+[01:04.41]让我连恨都难以下笔
+[01:07.15]将真心抽离写成日记 像是一场默剧
+[01:12.51]你的完美主义 太彻底
+[01:15.10]分手的话像语言暴力
+[01:17.79]我已无能为力再提起 决定中断熟悉
+[01:33.98]然后在这里 不限日期
+[01:36.65]然后将过去 慢慢温习
+[01:39.33]让我爱上你 那场悲剧
+[01:41.71]是你完美演出的一场戏
+[01:44.74]宁愿心碎哭泣 再狠狠忘记 你爱过我的证据
+[01:49.75]让晶莹的泪滴 闪烁成回忆 伤人的美丽
+[01:55.34]你的完美主义 太彻底
+[01:57.99]让我连恨都难以下笔
+[02:00.68]将真心抽离写成日记 像是一场默剧
+[02:05.96]你的完美主义 太彻底
+[02:08.65]分手的话像语言暴力
+[02:11.26]我已无能为力再提起 决定中断熟悉
+[03:32.30]周杰伦 周杰伦 周 杰 伦
+[03:34.92]周杰伦 周杰伦 周 杰 伦
+[03:37.58]周杰伦 周杰伦 周 杰 伦
+[03:40.24]周杰伦 周杰伦 周 杰 伦
+[03:42.14]...
+[03:31.17]`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song3.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '星晴',
+        lyric:`[00:00.72]星晴
+[00:02.72]作词：周杰伦 作曲：周杰伦
+[00:05.72]演唱：周杰伦
+[00:08.72]一步两步三步四步
+[00:14.45]望着天 看星星
+[00:17.03]一颗两颗三颗四颗连成线
+[00:22.41]一步两步三步四步
+[00:25.17]望着天 看星星
+[00:27.74]一颗两颗三颗四颗连成线
+[00:32.80]乘着风游荡在蓝天边
+[00:39.22]一片云掉落在我面前
+[00:44.63]捏成你的形状
+[00:47.34]随风跟着我
+[00:49.27]一口一口吃掉忧愁
+[00:52.76]载着你彷彿载着阳光
+[01:00.75]不管到哪里都是晴天
+[01:06.15]蝴蝶自在飞
+[01:08.90]花也布满天
+[01:11.01]一朵一朵因你而香
+[01:14.33]试图让夕阳飞翔
+[01:20.12]带领你我环绕大自然
+[01:28.79]迎著风开始共渡每一天
+[01:36.30]手牵手
+[01:38.01]一步两步三步四步
+[01:40.67]望着天 看星星
+[01:43.31]一颗两颗三颗四颗连成线
+[01:47.63]背着背默默许下心愿
+[01:52.42]看远方的星星否听的见
+[01:57.51]手牵手
+[01:59.60]一步两步三步四步
+[02:02.02]望着天看星星
+[02:04.74]一颗两颗三颗四颗连成线
+[02:09.11]背着背默默许下心愿
+[02:13.96]看远方的星如果听的见
+[02:19.27]它一定实现
+[02:21.93]载着你彷彿载着阳光
+[02:48.53]不管到哪里都是晴天
+[02:53.95]蝴蝶自在飞
+[02:56.73]花也布满天
+[02:58.91]一朵一朵因你而香
+[03:02.29]试图让夕阳飞翔
+[03:07.95]带领你我环绕大自然
+[03:16.60]迎着风开始共渡每一天
+[03:23.88]手牵手
+[03:25.88]一步两步三步四步
+[03:28.48]望着天 看星星
+[03:31.14]一颗两颗三颗四颗连成线
+[03:35.49]背着背默默许下心愿
+[03:40.20]看远方的星星否听的见
+[03:45.35]手牵手
+[03:47.46]一步两步三步四步
+[03:50.04]望着天 看星星
+[03:52.77]一颗两颗三颗四颗连成线
+[03:57.29]背着背默默许下心愿
+[04:01.87]看远方的星如果听的见
+[04:07.33]它一定实现
+[04:10.69]`
+    },
+    {
+        musicSrc: '../music/album/jielun/song4.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '娘子',
+        lyric:`[00:01.88]娘子
+[00:02.52]演唱:周杰伦
+[00:10.00]
+[00:14.05]娘子 娘子却依旧每日 折一枝杨柳
+[00:17.16]你在那里 在小村外的溪边河口默默等著我
+[00:21.61]娘子依旧每日折一枝杨柳
+[00:24.41]你在那里 在小村外的溪边 默默等待 娘子
+[00:28.81]一壶好酒 再来一碗热粥 配上几斤的牛肉
+[00:32.01]我说店小二 三两银够不够
+[00:35.63]景色入秋 漫天黄沙凉过
+[00:37.70]塞北的客栈人多 牧草有没有 我马儿有些瘦
+[00:42.75]世事看透 江湖上潮起潮落 什么恩怨过错
+[00:46.29]在多年以后 还是让人难过 心伤透
+[00:52.95]娘子她人在江南等我 泪不休 语沉默
+[00:56.80]娘子却依旧每日折一枝杨柳
+[01:04.00]在小村外的溪边河口
+[01:07.52]默默的在等著我
+[01:11.43]家乡的爹娘早已苍老了轮廓
+[01:18.11]娘子我欠你太多
+[01:25.43]一壶好酒 再来一碗热粥 配上几斤的牛肉
+[01:28.44]我说店小二 三两银够不够
+[01:32.18]景色入秋 漫天黄沙凉过
+[01:34.11]塞北的客栈人多 牧草有没有 我马儿有些瘦
+[01:39.84]天涯尽头 满脸风霜落寞 近乡情怯的我
+[01:42.67] 相思寄红豆 相思寄红豆无能为力的在人海中漂泊 心伤透
+[01:49.54]娘子她人在江南等我 泪不休 语沉默
+[02:21.93]一壶好酒 再来一碗热粥 配上几斤的牛肉
+[02:24.88]我说店小二 三两银够不够
+[02:28.58]景色入秋 漫天黄沙凉过
+[02:35.84]世事看透 江湖上潮起潮落 什么恩怨过错
+[02:39.19]在多年以后 还是让人难过 心伤透
+[02:46.23]娘子她人在江南等我 泪不休 语沉默
+[02:49.80]娘子却依旧每日折一枝杨柳
+[02:56.89]在小村外的溪边河口
+[03:00.53]默默的在等著我
+[03:03.88]家乡的爹娘早已苍老了轮廓
+[03:11.02]娘子我欠你太多
+[02:21.93]一壶好酒 再来一碗热粥 配上几斤的牛肉
+[02:24.88]我说店小二 三两银够不够
+[02:28.58]景色入秋 漫天黄沙凉过
+[03:18.23]一壶好酒 再来一碗热粥 配上几斤的牛肉
+[03:21.31]我说店小二 三两银够不够
+[03:25.10]景色入秋 漫天黄沙凉过
+[03:27.30]塞北的客栈人多 牧草有没有 我马儿有些瘦
+[03:32.31]天涯尽头 满脸风霜落寞 近乡情怯的我
+[03:34.78] 相思寄红豆 相思寄红豆无能为力的在人海中漂泊 心伤透
+[03:42.48]娘子她人在江南等我 泪不休 语沉默
+[03:46.49]娘子 娘子却依旧每日 折一枝杨柳
+[03:48.93]你在那里 在小村外的溪边河口默默等著我
+[03:53.39]娘子依旧每日折一枝杨柳
+[03:55.98]你在那里 在小村外的溪边 默默等待 娘子
+[04:00.48]娘子 娘子却依旧每日 折一枝杨柳
+[04:03.02]你在那里 在小村外的溪边河口默默等著我
+[04:07.52]娘子依旧每日折一枝杨柳
+[04:10.16]你在那里 在小村外的溪边 默默等待 娘子
+[04:15.09]`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song5.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '斗牛',
+        lyric:`[00:01.70]斗牛
+[00:03.70]作词：方文山 作曲：周杰伦
+[00:05.70]演唱：周杰伦
+[00:16.70]有什么不妥 有话就直说
+[00:20.34]别窝在角落 不爽就反驳
+[00:24.07]到底拽什么 懂不懂篮球
+[00:27.68]有种不要走 三对三斗牛
+[00:31.49]有什么不妥 有话就直说
+[00:35.02]别窝在角落 不爽就反驳
+[00:38.71]到底拽什么 懂不懂篮球
+[00:42.32]有种不要走 三对三斗牛
+[00:45.41]三分球 它在空中停留
+[00:48.46]所有人看着我 抛物线进球
+[00:52.18]单手过人运球 篮下妙传出手
+[00:55.85]漂亮的假动作 帅呆了我
+[00:59.58]全场盯人防守 篮下禁区游走
+[01:03.20]快攻抢篮板球 得分都靠我
+[01:06.96]你拿着球不投 又不会掩护我
+[01:10.55]选你这种队友 瞎透了我
+[01:14.74]说你说 分数怎么停留
+[01:16.55]一直在停留 谁让它停留的
+[01:18.89]为什么我女朋友场外加油
+[01:20.64]你却还让我出糗
+[01:22.37]你说啊 你怎么抄我球
+[01:24.10]你说啊 你怎么打我手
+[01:25.94]你说啊 是不是你不想活
+[01:29.79]说你怎么面对我 甩开球我满腔的怒火
+[01:33.40]我想揍你已经很久 别想躲
+[01:37.05]说你眼睛看着我 别发抖
+[01:39.56]快给我抬起头 有话去对医药箱说
+[01:42.77]别怪我
+[01:44.56]说你怎么面对我 甩开球我满腔的怒火
+[01:48.22]我想揍你已经很久 别想躲
+[01:51.76]说你眼睛看着我 别发抖
+[01:54.00]快给我抬起头 有话去对医药箱说
+[01:57.66]别怪我
+[02:36.25]三分球 它在空中停留
+[02:39.25]所有人看着我 抛物线进球
+[02:42.97]单手过人运球 篮下妙传出手
+[02:46.61]漂亮的假动作 帅呆了我
+[02:50.50]全场盯人防守 篮下禁区游走
+[02:53.94]快攻抢篮板球 得分都靠我
+[02:57.77]你拿着球不投 又不会掩护我
+[03:01.34]选你这种队友 瞎透了我
+[03:05.58]说你说 分数怎么停留
+[03:07.42]一直在停留 谁让它停留的
+[03:09.73]为什么我女朋友场外加油
+[03:11.62]你却还让我出糗
+[03:13.18]你说啊 你怎么抄我球
+[03:14.79]你说啊 你怎么打我手
+[03:16.67]你说啊 是不是你不想活
+[03:20.50]说你怎么面对我 甩开球我满腔的怒火
+[03:24.25]我想揍你已经很久 别想躲
+[03:27.87]说你眼睛看着我 别发抖
+[03:30.00]快给我抬起头 有话去对医药箱说
+[03:33.66]别怪我
+[03:35.32]说你怎么面对我 甩开球我满腔的怒火
+[03:39.03]我想揍你已经很久 别想躲
+[03:42.67]说你眼睛看着我 别发抖
+[03:44.81]快给我抬起头 有话去对医药箱说
+[03:48.52]别怪我
+[03:50.05]说你怎么面对我 甩开球我满腔的怒火
+[03:53.83]我想揍你已经很久 别想躲
+[03:57.50]说你眼睛看着我 别发抖
+[03:59.77]快给我抬起头 有话去对医药箱说
+[04:03.26]别怪我
+[04:04.98]`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song6.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '黑色幽默',
+        lyric:`[00:01.60]黑色幽默
+[00:03.60]演唱：周杰伦
+[00:15.67]难过 是因为闷了很久
+[00:21.06]是因为想了太多
+[00:24.86]是心理起了作用
+[00:30.66]你说 苦笑常常陪着你
+[00:36.10]在一起有点勉强
+[00:39.77]该不该现在休了我
+[00:44.68]不想太多
+[00:47.32]我想一定是我听错弄错搞错
+[00:53.12]拜托 我想是你的脑袋有问题
+[00:59.92]随便说说
+[01:02.30]其实我早已经猜透看透不想多说
+[01:09.78]只是我怕眼泪撑不住
+[01:15.62]不懂 你的黑色幽默
+[01:23.09]想通 却又再考倒我
+[01:30.57]说散 你想很久了吧
+[01:37.54]我不想拆穿你
+[01:45.71]当作 是你开的玩笑
+[01:53.11]想通 却又再考倒我
+[02:00.57]说散 你想很久了吧
+[02:07.64]败给你的黑色幽默
+[02:45.15]不想太多
+[02:47.66]我想一定是我听错弄错搞错
+[02:53.39]拜托 我想是你的脑袋有问题
+[03:00.35]随便说
+[03:04.14]已经猜透看透不想多说
+[03:11.63]怕眼泪撑不住
+[03:15.89]不懂 你的黑色幽默
+[03:23.44]想通 却又再考倒我
+[03:30.96]说散 你想很久了吧
+[03:37.82]我不想拆穿你
+[03:45.98]当作 是你开的玩笑
+[03:53.39]想通 却又再考倒我
+[04:00.91]说散 你想很久了吧
+[04:07.89]败给你的黑色幽默
+[04:16.26]说散 你想很久了吧
+[04:23.09]我的认真败给黑色 幽 默
+[04:38.67]`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song7.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '伊斯坦堡',
+        lyric:`[00:01.81]伊斯坦堡
+[00:02.81]作词：徐若瑄 作曲：周杰伦
+[00:03.81]演唱：周杰伦
+[00:24.81]走过了很多地方
+[00:27.65]我来到伊斯坦堡
+[00:30.79]就像是童话故事
+[00:33.86]有教堂有城堡
+[00:36.86]每天忙碌地的寻找
+[00:39.94]到底什么我想要
+[00:43.36]却发现迷了路怎么找也找不着
+[00:49.80]心血来潮起个大早
+[00:52.44]怎么我也睡不着
+[00:55.90]昨晚梦里你来找 我才
+[01:01.84]原来我只想要你陪(我去吃汉堡)
+[01:05.07]说穿了其实我的(愿望就怎么小)
+[01:08.22]就怎么每天祈祷我的心跳你知道
+[01:13.87]杵在伊斯坦堡却(只想你和汉堡)
+[01:17.17]我想要你的微笑(每天都能看到)
+[01:20.21]我知道这里很美但家乡的你更美
+[01:49.89]走过了很多地方
+[01:52.90]我来到伊斯坦堡
+[01:55.92]就像是童话故事
+[01:58.94]有教堂有城堡
+[02:02.04]每天忙碌地的寻找
+[02:04.99]到底什么我想要
+[02:08.41]却发现迷了路怎么找也找不着
+[02:14.87]心血来潮起个大早
+[02:17.39]怎么我也睡不着
+[02:21.02]昨晚梦里你来找 我才
+[02:26.95]原来我只想要你陪(我去吃汉堡)
+[02:30.14]说穿了其实我的(愿望就怎么小)
+[02:33.13]就怎么每天祈祷我的心跳你知道
+[02:38.99]杵在伊斯坦堡却(只想你和汉堡)
+[02:42.30]我想要你的微笑(每天都能看到)
+[02:45.22]我知道这里很美但家乡的你更美
+[02:51.55]原来我只想要你陪(我去吃汉堡)
+[02:54.34]说穿了其实我的(愿望就怎么小)
+[02:57.38]就怎么每天祈祷我的心跳你知道
+[03:03.35]杵在伊斯坦堡却(只想你和汉堡)
+[03:06.46]我想要你的微笑(每天都能看到)
+[03:09.58]我知道这里很美但家乡的你更美
+[03:14.67]`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song8.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '印第安老斑鸠',
+        lyric:`[00:05.46]印地安老斑鸠
+[00:08.47]作词：方文山 作曲：周杰伦
+[00:11.58]演唱：周杰伦
+[00:34.95]沙漠之中怎麼會有泥鰍
+[00:37.37]话说完飞过一只海鸥
+[00:40.02]大峡谷的风呼啸而过
+[00:44.13]是谁说没有
+[00:45.60]有一条热昏头的响尾蛇
+[00:47.94]无力的躺在干枯的河
+[00:50.34]在等待雨季来临变沼泽
+[00:55.80]灰狼啃食著水鹿的骨头
+[00:58.37]秃鹰盘旋死盯着腐肉
+[01:00.45]草原上两只敌对野牛在远方决斗
+[01:05.92]在一处被废弃的白蛦丘
+[01:08.21]站着一只饿昏的老斑鸠
+[01:21.21]印地安老斑鸠腿短毛不多
+[01:23.60]几天都没有喝水也能活
+[01:26.40]脑袋瓜有一点秀逗
+[01:28.71]猎物死了它比谁都难过
+[01:31.40]印地安斑鸠会学人开口
+[01:33.71]仙人掌怕羞蜥蝪横著走
+[01:36.55]这里什么奇怪的事都有
+[01:39.17]包括像猫的狗
+[01:41.56]印地安老斑鸠平常话不多
+[01:43.89]除非是乌鸦抢了它的窝
+[01:46.64]它在灌木丛旁邂逅
+[01:49.22]一只令它心仪的母斑鸠
+[02:17.41]牛仔红蕃在小镇背对背决斗
+[02:19.70]一只灰狼问候我谁是神枪手
+[02:22.42]巫师他念念有词的对酋长下诅咒还我骷髅头
+[02:25.05]这故事告诉我印地安的传说还真是瞎透了什么都有
+[02:27.84]沙漠之中怎么会有泥鳅
+[02:29.93]话说完飞过一只海鸥
+[02:32.56]大峡谷的风呼啸而过
+[02:36.80]是谁说没有
+[02:38.23]有一条热昏头的响尾蛇
+[02:40.35]无力的躺在干枯的河
+[02:42.95]在等待雨季来临变沼泽
+[02:48.50]灰狼啃食著水鹿的骨头
+[02:50.41]秃鹰盘旋死盯着腐肉
+[02:52.92]草原上两只敌对野牛在远方决斗
+[02:58.42]在一处被废弃的白蛦丘
+[03:00.89]站着一只饿昏的老斑鸠
+[03:08.76]印地安老斑鸠腿短毛不多
+[03:10.82]几天都没有喝水也能活
+[03:13.70]脑袋瓜有一点秀逗
+[03:17.25]猎物死了它比谁都难过
+[03:18.78]印地安斑鸠 （我休息一下）
+[03:22.19]仙人掌怕羞蜥蝪横著走
+[03:23.98]这里什么奇怪的事都有
+[03:27.54]包括像猫的狗
+[03:28.97]印地安老斑鸠平常话不多
+[03:31.31]除非是乌鸦抢了它的窝
+[03:34.11]它在灌木丛旁邂逅
+[03:36.69]一只令它心仪的母斑鸠
+[03:59.67]印地安老斑鸠腿短毛不多
+[04:01.85]几天都没有喝水也能活
+[04:04.76]脑袋瓜
+[04:08.27]猎物死了它比谁都难过
+[04:10.24]印地安斑鸠会学人开口
+[04:12.29]仙人掌怕羞蜥蝪横著走
+[04:14.91]这里什么奇怪的事都有
+[04:17.52]包括像猫的狗
+[04:20.35]印地安老斑鸠平常话不多
+[04:22.54]除非是乌鸦抢了它的窝
+[04:25.11]它在灌木丛旁邂逅
+[04:27.61]一只令它心仪的母斑鸠
+[04:30.58]`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song9.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '龙卷风',
+        lyric:`[00:04.47]龙卷风
+[00:13.27]作词：徐若瑄 作曲：周杰伦
+[00:15.43]演唱：周杰伦
+[00:27.21]爱像一阵风 吹完它就走
+[00:34.32]这样的节奏 谁都无可奈何
+[00:40.95]没有你以後 我灵魂失控
+[00:47.56]黑云在降落 我被它拖着走
+[00:54.09]静静悄悄默默离开陷入了危险边缘 Baby~
+[01:01.26]我的世界已狂风暴雨
+[01:07.52]爱情来的太快 就像龙卷风
+[01:10.95]离不开暴风圈 来不及逃
+[01:13.90]我不能再想 我不能再想
+[01:17.21]我不 我不 我不能
+[01:21.02]爱情走的太快 就像龙卷风
+[01:24.31]不能承受 我已无处可躲
+[01:27.16]我不要再想 我不要再想
+[01:30.60]我不 我不 我不要再想你
+[01:34.43]不知不觉 你已经离开我
+[01:37.62]不知不觉 我跟了这节奏
+[01:40.92]後知後觉 又过了一个秋
+[01:44.23]後知後觉 我该好好生活
+[01:47.40]静静悄悄默默离开陷入了危险边缘 Baby~
+[01:54.68]我的世界已狂风暴雨
+[02:00.92]爱情来的太快 就像龙卷风
+[02:04.35]离不开暴风圈 来不及逃
+[02:07.25]我不能再想 我不能再想
+[02:10.57]我不 我不 我不能
+[02:14.42]爱情走的太快 就像龙卷风
+[02:17.71]不能承受 我已无处可躲
+[02:20.55]我不要再想 我不要再想
+[02:23.90]我不 我不 我不要再想你
+[02:53.85]爱情来的太快 就像龙卷风
+[02:57.74]离不开暴风圈 来不及逃
+[03:00.56]我不能再想 我不能再想
+[03:03.75]我不 我不 我不能
+[03:07.66]爱情走的太快 就像龙卷风
+[03:10.91]不能承受 我已无处可躲
+[03:13.85]我不要再想 我不要再想
+[03:17.25]我不 我不 我不要再想你
+[03:21.30]不知不觉 你已经离开我
+[03:24.31]不知不觉 我跟了这节奏
+[03:27.55]後知後觉 又过了一个秋
+[03:30.95]後知後觉 我该好好生活
+[03:34.58]不知不觉 你已经离开我
+[03:37.55]不知不觉 我跟了这节奏
+[03:40.90]後知後觉 又过了一个秋
+[03:44.21]後知後觉 我该好好生活
+[03:47.77]不知不觉 你已经离开我
+[03:50.90]不知不觉 我跟了这节奏
+[03:54.44]後知後觉 又过了一个秋
+[03:58.86]`,
+    },
+    {
+        musicSrc: '../music/album/jielun/song10.flac',
+        musicPic: '../image/album/1.jpg',
+        musician: '周杰伦',
+        musicName: '反方向的钟',
+        lyric:`[00:00.91]反方向的钟
+[00:02.99]作词：方文山 作曲：周杰伦
+[00:04.99]演唱：周杰伦
+[00:45.57]迷迷蒙蒙 你给的梦
+[00:47.97]出现裂缝 隐隐作痛
+[00:50.35]怎么沟通 你都没空
+[00:52.80]说我不懂 说了没用
+[00:55.50]他的笑容 有何不同
+[00:57.85]在你心中 我不再受宠
+[01:00.68]我的天空 是雨是风
+[01:03.00]还是彩虹 你在操纵
+[01:06.51]恨自己真的没用
+[01:08.59]情绪激动
+[01:11.12]一颗心到现在还在抽痛
+[01:15.00]还为分手前那句抱歉
+[01:20.28]在感动
+[01:26.22]穿梭时间的画面的钟
+[01:30.97]从反方向开始移动
+[01:36.17]回到当初爱你的时空
+[01:41.01]停格内容不忠
+[01:46.52]所有回忆对着我进攻
+[01:51.26]我的伤口被你拆封
+[01:56.40]誓言太沉重泪被纵容
+[02:01.28]脸上汹涌失控
+[02:16.58]城市霓虹 不安跳动
+[02:18.35]染红夜空
+[02:19.23]过去种种 象一场梦
+[02:20.68]不敢去碰 一想就痛
+[02:21.83]心碎内容 每一秒钟
+[02:23.08]都有不同 你不懂
+[02:24.16]连一句珍重 也有苦衷
+[02:25.74]也不想送
+[02:26.51]寒风中 废墟烟囱
+[02:27.81]停止转动 一切落空
+[02:29.07]在人海中 盲目跟从
+[02:30.57]别人的梦 全面放纵
+[02:31.87]恨没有用 疗伤止痛
+[02:33.29]不再感动 没有梦
+[02:34.50]痛不知轻重 泪水鲜红
+[02:36.03]全面放纵
+[02:47.75]恨自己真的没用 情绪激动
+[02:52.28]一颗心到现在还在抽痛
+[02:57.41]还为分手前那句抱歉
+[03:01.38]在感动
+[03:07.66]穿梭时间的画面的钟
+[03:12.22]从反方向开始移动
+[03:17.59]回到当初爱你的时空
+[03:22.44]停格内容不忠
+[03:27.83]所有回忆对着我进攻
+[03:32.63]我的伤口被你拆封
+[03:37.97]誓言太沉重泪被纵容
+[03:42.81]脸上汹涌失控
+[03:48.37]穿梭时间的画面的钟
+[03:52.85]从反方向开始移动
+[03:58.10]回到当初爱你的时空
+[04:03.03]停格内容不忠
+[04:06.68]`,
+    },
+]
+
+    // 获取歌词
+    function searchLyric(index){
+    timeArr = [];
+    lrcArr = [];
+    insertLrcStr = '';
+    const str = musicList[index].lyric.split('\n')
+    str.forEach(item => {
+        const splitLyc = item.split(']')
+        timeArr.push(timeFormat(splitLyc[0].substr(1, splitLyc[0].length -4)))
+        lrcArr.push(splitLyc[1])
+        insertLrcStr += `<li>${lrcArr[lrcArr.length - 1]}</li>`
+    })
+    lycContent.innerHTML = insertLrcStr
+}
+
+
+    // 歌词正常滚动
+    function lycSlide() {
+    // 使用二分查找确定当前音频时间对应的歌词索引
+    let index = binarySearch(timeArr, Math.floor(audio.currentTime));
+
+    // 计算歌词容器的垂直居中位置
+    const containerHeight = lycContent.offsetHeight;
+    const lineHeight = 63.33; // 假设每行歌词的高度为 30px
+    const centerPosition = (containerHeight / 2) - (lineHeight / 2);
+
+    // 直接设置歌词容器的 top 值，并添加 'px' 单位
+    lycContent.style.top = centerPosition - (index * lineHeight) + 'px';
+
+    // 移除所有歌词行的 'active' 类
+    [...lycContent.children].forEach(item => {
+        item.className = '';
+    });
+
+    // 将 'active' 类添加到当前歌词行
+    lycContent.children[index].className = 'active';
+}
+    function timeFormat(timeStr) {
+        if(timeStr) {
+            const timeStrArr = timeStr.split(':')
+            const minute = timeStrArr[0][0] == '0' ? timeStrArr[0][1] : timeStrArr[0]
+            const second = timeStrArr[1][0] == '0' ? timeStrArr[1][1] : timeStrArr[1]
+            return parseInt(minute) * 60 + parseInt(second)
+        }
+    }
+
+    // 二分查找
+    function binarySearch(arr, target, left = 0, right = arr.length -1) {
+        if(left > right) return left -1 
+        const mid = Math.floor((left + right) / 2)
+        if(arr[mid] === target) return mid
+        if(arr[mid] > target) {
+            return binarySearch(arr, target, left, mid - 1)
+        } else {
+            return binarySearch(arr, target, mid + 1, right)
+        }
+    }
+    // 处理时间显示进度条
+    function timeAndProgress() {
+        playerProgress.style.width = audio.currentTime / audio.duration * 100 + '%'
+        let time = audio.duration - audio.currentTime
+        let minue = parseInt(time / 60)
+        let second = parseInt(time % 60)
+        let str = `${minue < 10 ? '0' + minue : minue}:${second < 10 ? '0' + second : second}`
+        timeStr.innerHTML = str
+        lycSlide()
+    }
+
+    // 设置播放的音乐和图片
+    function setMusic(index) {
+        musicImg.src = musicList[index].musicPic
+        audio.src = musicList[index].musicSrc
+        musician.innerHTML = musicList[index].musician
+        musicName.innerHTML = musicList[index].musicName
+        searchLyric(index)
+        playMusic()
+
+    }
+
+    // 播放音乐
+    function playMusic() {
+        audio.play()
+        playBtn.style.display = 'none'
+        zanTingBtn.style.display = 'block'
+        searchLyric(nowPlayIndex)
+    }
+
+    // 暂停音乐
+    function pauseMusic() {
+        audio.pause()
+        playBtn.style.display = 'block'
+        zanTingBtn.style.display = 'none'
+    }
+
+    // 上一首
+    function previousMusic() {
+        if (nowPlayIndex == 0) {
+            nowPlayIndex = musicList.length - 1
+        } else {
+            nowPlayIndex--
+        }
+        setMusic(nowPlayIndex)
+        searchLyric(nowPlayIndex)
+    }
+
+    // 下一首
+    function nextMusic() {
+        if (nowPlayIndex == musicList.length - 1) {
+            nowPlayIndex = 0
+        } else {
+            nowPlayIndex++
+        }
+        setMusic(nowPlayIndex)
+    }
+
+    // 显示歌词
+    lycShow.addEventListener('click', function() {
+        if(!showLycFlag) {
+            musicInfo.style.display = 'block'
+            lyricMask.style.display = 'block'
+            infoLeft.style.width = '100%'
+            showLycFlag = true
+        } else {
+            musicInfo.style.display = 'flex'
+            lyricMask.style.display = 'none'
+            infoLeft.style.width = '40%'
+            showLycFlag = false
+        }
+    })
+    // 添加滚动事件
+    audio.addEventListener('timeupdate', function() {
+        lycSlide()
+    })
+    // 加载完MP3需要设置时间显示与进度条监听
+    audio.addEventListener("canplay", function () {
+        duration = audio.duration
+        setInterval(function () {
+            timeAndProgress()
+        }, 1000)
+    })
+    
+
+    // 播放完毕监听事件（下一首）
+    audio.addEventListener("ended", function () {
+        nextMusic()
+    })
+
+    // 点击进度条更改播放进度
+    playerProgressBar.addEventListener("click", function (e) {
+        audio.currentTime = e.offsetX / this.offsetWidth * duration
+        timeAndProgress()
+    })
+
+    // 点击声音条更改声音大小
+    soundDuration.addEventListener('click', function (e) {
+        audio.volume = e.offsetX / this.offsetWidth
+        soundProgress.style.width = e.offsetX / this.offsetWidth * 100 + '%'
+    })
+
+    // 声音拖动
+    round.addEventListener('mousedown', function () {
+        let soundBarLength = soundProgressBar.offsetWidth
+
+        // 鼠标移动
+        document.onmousemove = function (ev) {
+            let myEvent = ev || event
+            let disX = myEvent.clientX - soundProgressBar.getBoundingClientRect().left
+            if (disX > soundBarLength) {
+                disX = soundBarLength
+            } else if (disX == 0) {
+                disX = 0
+            }
+            soundProgress.style.width = disX / soundBarLength * 100 + '%'
+            audio.volume = disX / soundBarLength
+        }
+
+        // 鼠标抬起
+        document.onmouseup = function () {
+            document.onmousemove = null
+            document.onmouseup = null
+        }
+    })
+    // 显示歌词
+
+
+    // 播放
+    playBtn.addEventListener('click', function () {
+        playMusic()
+    })
+
+    // 暂停
+    zanTingBtn.addEventListener('click', function () {
+        pauseMusic()
+    })
+
+    // 上一首歌
+    previousBtn.addEventListener('click', function () {
+        previousMusic()
+    })
+
+    // 下一首歌
+    nextBtn.addEventListener('click', function () {
+        nextMusic()
+    })
+    let lycPosition = 0; // 记录当前歌词位置的变量// 监听鼠标滚动事件
+lyricWrapper.addEventListener('wheel', function(event) {
+    event.preventDefault(); // 阻止默认滚动行为
+    const delta = Math.sign(event.deltaY); // 获取鼠标滚动方向
+
+    // 调整歌词位置
+    lycPosition -= delta * 30;
+    lycContent.style.transform = `translateY(${lycPosition}px)`;
+});
+</script>
+
+</html>

@@ -1,0 +1,212 @@
+@font-face {
+    font-family: Moderat;
+    font-weight: 700;
+    src:url(./asset/font/Moderat-Bold.aef2636.ttf) format("truetype"), url(./asset/font/Moderat-Medium.9a1678a.ttf) format("truetype"), url(./asset/font/Moderat-Regular.a2f5d8f.ttf) format("truetype");
+    text-rendering: optimizeLegibility;
+}
+
+.iconfont {
+    color: #fff;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url(./asset/MontereyGraphic.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: Moderat;
+}
+
+.music-player-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    .music-player {
+        width: 500px;
+        border-radius: 30px;
+        background-color: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(35px);
+        -webkit-backdrop-filter: blur(35px);
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
+        box-sizing: border-box;
+        .top-bar {
+            display: flex;
+            height: 10%;
+            margin-bottom: 20px;
+            justify-content: space-between;
+            .icon-24gl-volumeMiddle {
+                margin: 0;
+                font-size: 25px !important;
+            }
+            .icon-geciweidianji {
+                font-size: 25px !important;
+            }
+            .progress-bar {
+                position: relative;
+                margin-top: 10px;
+                margin-bottom: 5px;
+                width: 75%;
+                cursor: pointer;
+                .duration-bar {
+                    display: inline-block;
+                    width: 100%;
+                    height: 6px;
+                    border-radius: 30px;
+                    background: rgba(238, 238, 238, 0.3);
+                    backdrop-filter: blur(25px);
+                    -webkit-backdrop-filter: blur(25px);
+                    position: absolute;
+                }
+                .progress {
+                    display: inline-block;
+                    width: 100%;
+                    height: 6px;
+                    background-color: #fff;
+                    border-radius: 30px;
+                    position: absolute;
+                    .round {
+                        position: absolute;
+                        right: -7.5px;
+                        top: -4.5px;
+                        width: 15px;
+                        height: 15px;
+                        background: #fff;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+        .music-info {
+            display: flex;
+            .info-left {
+                width: 40%;
+                // width: 100%;
+                margin-right: 30px;
+                position: relative;
+                .lyric-mask {
+                    width: 100%;
+                    height: 99.3%;
+                    background-color: rgba(0, 0, 0, 0.1);
+                    backdrop-filter: blur(35px);
+                    border-radius: 20px;
+                    z-index: 10;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    text-align: center;
+                    display: none;
+                    .lyric-wrapper {
+                        width: 100%;
+                        height: 100%;
+                        color: #fff;
+                        display: flex;
+                        justify-content: center;
+                        overflow: hidden;
+                        #lyc-content {
+                            position: relative;
+                            transition: .5s;
+                            top: 70px;
+                            margin: 0;
+                            padding: 0;
+                            font-size: .8vw;
+                            li {
+                                list-style: none;
+                                margin: 10px 0;
+                                font-size: 100px;
+                            }
+                        }
+                    }
+                }
+                img {
+                    width: 100%;
+                    border-radius: 20px;
+                }
+            }
+            .info-right {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                .music-name {
+                    width: 240px;
+                    .name {
+                        font-size: 22px;
+                        color: #fff;
+                        font-weight: 500;
+                    }
+                    .musician {
+                        display: block;
+                        color: rgb(232, 225, 231);
+                        font-size: 15px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
+                    }
+                }
+                .playback-setting {
+                    display: flex;
+                    flex: 1;
+                    justify-content: center;
+                    align-items: center;
+                    .previous {
+                        transform: rotate(180deg);
+                    }
+                    .icon-next {
+                        font-size: 35px;
+                    }
+                    .icon-bofang,
+                    .icon-zanting1 {
+                        font-size: 55px !important;
+                    }
+                    .icon-zanting1 {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .progress-bar {
+            position: relative;
+            margin-top: 20px;
+            cursor: pointer;
+            .duration-bar {
+                display: inline-block;
+                width: 100%;
+                height: 4px;
+                border-radius: 30px;
+                background: rgba(253, 253, 253, 0.4);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                position: absolute;
+            }
+            .progress {
+                display: inline-block;
+                width: 2%;
+                height: 4px;
+                background-color: #fff;
+                border-radius: 30px;
+                position: absolute;
+            }
+            .time {
+                position: absolute;
+                right: 0;
+                top: -24px;
+                color: rgb(242, 196, 210);
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.active {
+    color: rgb(220, 208, 255);
+    font-size: 1vw;
+}
