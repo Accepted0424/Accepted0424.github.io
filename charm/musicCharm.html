@@ -2,64 +2,296 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<title>音乐的魅力</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+  <title>音乐的魅力</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+
+    .container {
+      /*width: 300px;
+      height: 300px;*/
+      margin-top: -10px;
+      /*background-color: rgba(204, 204, 204, .6);*/
+      position: relative;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #e5d598, #ea9fd3);
+      display: inline-block;
+      width: 500px;
+      height: 70px;
+      border-radius: 35px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
+      font-size: 30px;
+      color: palevioletred;
+    }
+
+    .ripple-effect {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      vertical-align: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      z-index: 1;
+    }
+
+    .ripple-effect .ripple {
+      display: block;
+      position: absolute;
+      border-radius: 100%;
+      /*设置背景为彩虹渐变，可以换成其他颜色*/
+      background: linear-gradient(45deg,
+          rgba(255, 0, 0, .5),
+          rgba(255, 255, 0, .5),
+          rgba(0, 255, 255, .5),
+          rgba(0, 0, 255, .5));
+      -webkit-transform: scale(0);
+      transform: scale(0);
+      pointer-events: none;
+    }
+
+    .ripple-effect .animated {
+      -webkit-animation: ripple 0.6s linear;
+      animation: ripple 0.6s linear;
+    }
+
+    @keyframes ripple {
+      100% {
+        opacity: 0;
+        -webkit-transform: scale(2.5);
+        transform: scale(2.5);
+      }
+    }
+    .topbar a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .topbar a:hover {
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            background-color: aliceblue;
+            width: 100%;
+            z-index: 999;
+
+        }
+
+        ul {
+            height: 20px;
+            list-style: none;
+
+        }
+
+        #one {
+            float: left;
+            font-size: larger;
+        }
+
+        #two {
+            float: right;
+            margin-right: 25px;
+        }
+
+        #three {
+            float: right;
+            margin-right: 20px;
+        }
+  </style>
 </head>
 
 <body>
-	<div class="start1">
-		<h1><strong>音乐</strong></h1>
-	</div>
-	<div class="start2">
-		<h1><strong>将一切平凡画面</strong></h1>
-	</div>
-	<div class="start3">
-		<h1><strong>赋予了</strong></h1>
-	</div>
-	<div class="start4">
-		<h1><strong>深厚意义</strong></h1>
-	</div>
-	<div class="first">
-		<a href="">进入主页面</a>
-	</div>
-	<div class="for">
-		<img src="pic2.jpg" class="tp">
-		<img src="pic3.jpg" class="tp">
-		<img src="pic4.jpg" class="tp">
-	</div>
-	<div class="kaixin">
-		<p>音乐触碰了每一个人内心的温柔<br>
-			它唤起了人们心中的美好，总能让平凡生活中的我们想起世界的美好，感受到亲情，友情，爱情，家国情等。</p>
-	</div>
-	<div id="show" class="sec">
-		<img src="show1.jpg" class="pic1">
-		<p>音乐可以激发我们的情感、回忆和创造力，它能够触动我们的心灵，让我们感受到不同的情绪和氛围。有时候，一首熟悉的旋律可以让我们回忆起过去的某个时刻，或者激发我们对未来的美好憧憬。在音乐的世界里，我们可以找到安慰、激励和释放情感的出口。
-		</p>
-	</div>
-	<div class="sec">
-		<div>
-			<img src="cidai.png">
-			<p>
-				它能储存人们的珍贵回忆，藏着过去的酸甜苦辣，每一个人的牵肠挂肚，更有面对未来的奋勉。
-			</p>
-		</div>
-	</div>
-	<div class="sec">
-		<img src="tu1.jpg" id="pic8">
-		<p>
-			音乐让你在繁忙的生活适当“发疯”，摆脱无用的精神内耗，放松身心。
-		</p>
-	</div>
-	<div class="sec">
-		<img src="tu2.jpg" id="pic9">
-		<p>
-			又或者，音乐带你远离喧嚣的世界，徜徉在一个人的音乐海洋中，享受片刻安宁。
-		</p>
-	</div>
+  <div class="topbar">
+    <ul>
+        <li id="one">Music Station</li>
+        <li id="two"><a href="About.html" target="_blank">丨 About 丨</a></li>
+        <li id="three"><a href="joinUs.html" target="_blank">丨 Join us 丨</a></li>
+    </ul>
+</div>
+  <div class="text">
+    <p>音乐</p>
+    <p>将一切平凡画面</p>
+    <p>赋予了</p>
+    <P>深厚意义</P>
+  </div>
 
-	<video autoplay controls muted loop class="eight">
-		<source src="meili.mp4" type="video/mp4">
-	</video>
+  <video autoplay controls muted loop class="eight">
+    <source src="meili.mp4" type="video/mp4">
+  </video>
+
+  <div class="for">
+    <img src="pic2.jpg" class="tp">
+    <img src="pic3.jpg" class="tp">
+    <img src="pic4.jpg" class="tp">
+  </div>
+  <div class="kaixin">
+    <p>音乐触碰了每一个人内心的温柔<br>
+      生活中的每一个瞬间，都有可能被某一首不经意的歌曲所打动。<br>
+      音乐是情感的宣泄，它让我们在快乐的时候释放自己的热情，在悲伤的时候宣泄自己的哀伤。</p>
+  </div>
+  <div id="show" class="sec">
+    <img src="pic1.jpg" class="pic1">
+    <p>
+      音乐可以激发我们的情感、回忆和创造力，它能够触动我们的心灵，让我们感受到不同的情绪和氛围。有时候，一首熟悉的旋律可以让我们回忆起过去的某个时刻，或者激发我们对未来的美好憧憬。在音乐的世界里，我们可以找到安慰、激励和释放情感的出口。
+    </p>
+  </div>
+  <div class="sec">
+    <div>
+      <img src="show.jpg">
+      <p>
+        它能储存人们的珍贵回忆，藏着过去的酸甜苦辣，每一个人的牵肠挂肚，更有面对未来的奋勉。
+      </p>
+    </div>
+  </div>
+  <div class="sec">
+    <img src="tu1.jpg" id="pic8">
+    <p>
+      音乐让你在繁忙的生活适当“发疯”，摆脱无用的精神内耗，放松身心。
+    </p>
+  </div>
+  <div class="sec">
+    <img src="tu2.jpg" id="pic9">
+    <p>
+      又或者，音乐带你远离喧嚣的世界，徜徉在一个人的音乐海洋中，享受片刻安宁。
+    </p>
+  </div>
+
+
+
+  <div class="Album">
+    <div id="less">
+      <img src="left.png">
+    </div>
+    <div class="selection">
+      <div id="firstPic" class="section">
+        <a target="_blank"
+          href="https://zhuanlan.zhihu.com/p/79153848#:~:text=%E6%8C%89%E7%85%A7%E6%B1%89%E8%AF%AD%E8%AF%8D%E8%AF%AD%E8%A1%A8%E9%9D%A2,%E7%9A%84%E5%99%A8%E4%B9%90%E6%9B%B2%E5%92%8C%E6%AD%8C%E6%9B%B2%E3%80%82"><img
+            src="ph2.jpg"></a>
+        <p>流行</p>
+      </div>
+      <div class="section">
+        <a target="_blank" href="https://zhuanlan.zhihu.com/p/112734809"><img src="ph1.jpg"></a>
+        <p>古典</p>
+      </div>
+      <div class="section">
+        <a target="_blank" href="https://zhuanlan.zhihu.com/p/375083632"><img src="ph18.jpg"></a>
+        <p>爵士</p>
+      </div>
+      <div class="section">
+        <a target="_blank" href="https://zhuanlan.zhihu.com/p/133618554"><img src="ph17.jpg"></a>
+        <p>摇滚</p>
+      </div>
+      <div class="section">
+        <a target="_blank" href="https://zhuanlan.zhihu.com/p/378942416"><img src="ph7.jpg"></a>
+        <p>电子</p>
+      </div>
+      <div class="section">
+        <a target="_blank" href="https://zhuanlan.zhihu.com/p/377335518"><img src="ph4.jpg"></a>
+        <p>民族</p>
+      </div>
+      <div class="section">
+        <a target="_blank" href="https://zhuanlan.zhihu.com/p/377077207"><img src="ph20.jpg"></a>
+        <p>乡村</p>
+      </div>
+      <div class="section">
+        <a target="_blank"
+          href="https://zhuanlan.zhihu.com/p/28283691#:~:text=%E9%87%91%E5%B1%9E%E4%B9%90%20%E4%BA%A6%E7%A7%B0%20%E9%87%8D%E9%87%91%E5%B1%9E%E4%B9%90%EF%BC%88Heavy,Metal%EF%BC%89%20%EF%BC%8C%E6%98%AF%E6%91%87%E6%BB%9A%E4%B9%90%E7%9A%84%E4%B8%80%E4%B8%AA%E5%88%86%E6%94%AF%EF%BC%8C%E5%8F%91%E6%BA%90%E4%BA%8E%E4%BA%8C%E5%8D%81%E4%B8%96%E7%BA%AA%E5%85%AD%E5%8D%81%E5%B9%B4%E4%BB%A3%E6%9C%AB%E6%9C%9F%E3%80%81%E4%B8%83%E5%8D%81%E5%B9%B4%E4%BB%A3%E6%97%A9%E6%9C%9F%E3%80%82%20%E9%87%8D%E9%87%91%E5%B1%9E%E9%9F%B3%E4%B9%90%E6%A0%B9%E6%BA%90%E4%BA%8E%E5%B8%83%E9%B2%81%E6%96%AF%E6%91%87%E6%BB%9A%E3%80%81%E8%BF%B7%E5%B9%BB%E6%91%87%E6%BB%9A%EF%BC%8C%E5%85%B6%E7%89%B9%E5%BE%81%E9%80%9A%E5%B8%B8%E8%A1%A8%E7%8E%B0%E4%B8%BA%EF%BC%9A%E5%85%B7%E5%A4%87%E7%8B%82%E5%90%BC%E5%92%86%E5%93%AE%E6%88%96%E9%AB%98%E4%BA%A2%E6%BF%80%E6%98%82%E7%9A%84%E5%97%93%E9%9F%B3%E3%80%81%E7%94%B5%E5%90%89%E4%BB%96%E5%A4%A7%E9%87%8F%E5%A4%B1%E7%9C%9F%E7%9A%84%E9%9F%B3%E8%89%B2%E3%80%81%E5%86%8D%E4%BB%A5%E5%AF%86%E9%9B%86%E5%BF%AB%E9%80%9F%E7%9A%84%E9%BC%93%E7%82%B9%E5%92%8C%E4%BD%8E%E6%B2%89%E6%9C%89%E5%8A%9B%E7%9A%84%E8%B4%9D%E5%8F%B8%E5%A1%AB%E6%BB%A1%E6%95%B4%E4%B8%AA%E5%90%AC%E8%A7%89%E7%9A%84%E8%83%8C%E6%99%AF%E7%A9%BA%E9%97%B4%EF%BC%8C%E8%80%8C%E6%9E%84%E6%88%90%E4%B8%80%E7%A7%8D%E5%90%AB%E6%9C%89%E9%AB%98%E7%88%86%E5%8F%91%E5%8A%9B%EF%BC%8C%E5%BF%AB%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%87%8D%E9%87%8F%E6%84%9F%E5%8F%8A%E7%A0%B4%E5%9D%8F%E6%80%A7%E7%AD%89%E5%85%83%E7%B4%A0%E7%9A%84%E6%94%B9%E8%89%AF%E5%BC%8F%E6%91%87%E6%BB%9A%E4%B9%90%E3%80%82"><img
+            src="ph19.jpg"></a>
+        <p>金属</p>
+      </div>
+      <div class="section">
+        <a target="_blank" href="https://zhuanlan.zhihu.com/p/61350087"><img src="ph15.jpg"></a>
+        <p>hip-hop</p>
+      </div>
+    </div>
+    <div id="more">
+      <img src="right.png">
+    </div>
+
+  </div>
+  <div class="container">
+    <a href="../shouye.html">
+    <button class="btn ripple-effect">Next
+      <span class="ripple"></span>
+    </button>
+    </a>
+  </div>
+
+  <script>
+    function back() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+  <script>
+    const clickImageMore = document.getElementById('more');
+    const clickImageLess = document.getElementById('less');
+    const elementToMove = document.getElementById('firstPic');
+    let leftMargin = 0;
+    clickImageMore.addEventListener('click', function () {
+
+      leftMargin -= 900;
+      elementToMove.style.marginLeft = leftMargin + 'px';
+    });
+    clickImageLess.addEventListener('click', function () {
+
+      leftMargin += 900;
+      elementToMove.style.marginLeft = leftMargin + 'px';
+    });
+    const moreLink = document.getElementById('moreLink');
+    const moreInfoPopup = document.getElementById('moreInfoPopup');
+    const overlay = document.getElementById('overlay');
+    const closePopup = document.getElementById('closePopup');
+
+    moreLink.addEventListener('click', function () {
+      moreInfoPopup.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+
+    closePopup.addEventListener('click', function () {
+      moreInfoPopup.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+  </script>
+
+  <script>
+    window.onload = function () {
+      function ripple() {
+        var btn = document.querySelector(".btn");
+        var ripple = document.querySelector(".ripple");
+        btn.onclick = function (event) {
+          this.children[0].classList.add("animated");
+          var size;
+          //计算点击的波纹的最大值，并设置为宽高
+          size = Math.max(this.offsetWidth, this.offsetHeight);
+          ripple.style.width = size + "px";
+          ripple.style.height = size + "px";
+          //设置鼠标点击的位置为中心点，在这个中心点向四周散开的效果
+          ripple.style.top = -(this.offsetHeight - event.offsetY) + "px";
+          ripple.style.left = -(this.offsetWidth / 2 - event.offsetX) + "px";
+          setTimeout(function () {
+            btn.children[0].classList.remove("animated");
+          }, 800)
+        }
+      }
+      ripple();
+    }
+  </script>
 </body>
+
 </html>
