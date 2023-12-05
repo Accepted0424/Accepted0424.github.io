@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录与注册</title>
+    <style>
+        /* 原有样式保持不变 */
+        * { padding: 0; margin: 0; outline: none; }
+        body { background: linear-gradient(45deg, #e5d598, #ea9fd3); display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .shell { display: flex; justify-content: center; }
+        form { width: 562px; height: 600px; background-color: aliceblue; box-shadow: 0px 15px 40px #b6354e; border-radius: 15px; display: flex; justify-content: center; align-items: center; }
+        #form-body { width: 320px; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        #welcome-lines { width: 100%; text-align: center; line-height: 1; }
+        #w-line-1 { color: #7f7f7f; font-size: 50px; }
+        #w-line-2 { color: #9c9c9c; font-size: 30px; margin-top: 17px; }
+        #input-area { width: 100%; margin-top: 40px; }
+        .f-inp { padding: 13px 25px; border: 2px solid #6e6d6d; line-height: 1; border-radius: 20px; margin-bottom: 15px; }
+        .f-inp input { width: 100%; font-size: 14px; padding: 0; margin: 0; border: 0; }
+        .f-inp input::placeholder { color: rgb(0, 5, 9); }
+        #submit-button-cvr { margin-top: 20px; }
+        #button { display: block; width: 100%; color: #fff; font-size: 14px; margin: 0; padding: 14px 40px; border: 0; background-color: rgb(218, 104, 104); border-radius: 25px; line-height: 1; cursor: pointer; }
+        #forget-pass { text-align: center; margin-top: 10px; }
+        #forget-pass a { color: #868686; font-size: 12px; text-decoration: none; }
+
+        /* 新增样式 */
+        .tab { 
+            cursor: pointer; 
+            padding: 10px; 
+            color: #868686; 
+            font-weight: bold; 
+        }
+        .active-tab { 
+            color: #868686; 
+        }
+        .form-section { 
+            display: none; 
+            margin: auto; 
+        }
+        .form-section.active { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: column; 
+        }
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <!-- 登录表单 -->
+        <form id="login-form" class="form-section active" action="" method="post">
+            <div id="form-body">
+                <div id="welcome-lines">
+                    <div id="w-line-1">欢迎来到音乐网站</div>
+                    <div id="w-line-2">LOGIN</div>
+                </div>
+                <div id="input-area">
+                    <div class="f-inp">
+                        <input type="text" placeholder="Username" required>
+                    </div>
+                    <div class="f-inp">
+                        <input type="password" placeholder="Password" required>
+                    </div>
+                </div>
+                <div id="submit-button-cvr">
+                    <button type="submit" id="button">登录</button>
+                </div>
+                <div id="forget-pass">
+                    <a href="">Forget password?</a>
+                </div>
+            </div>
+            <div class="tab-container">
+               <div id="tabs">
+                   <span class="tab" onclick="showForm('register')">注册</span>
+               </div>
+              </div>
+        </form>
+
+        <!-- 注册表单 -->
+        <form id="register-form" class="form-section" action="#" method="post">
+            <div id="form-body">
+                <div id="welcome-lines">
+                    <div id="w-line-1">欢迎来到音乐网站</div>
+                    <div id="w-line-2">REGISTER</div>
+                </div>
+                <div id="input-area">
+                    <div class="f-inp">
+                        <input type="text" placeholder="Username" required>
+                    </div>
+                    <div class="f-inp">
+                        <input type="password" placeholder="Password" required>
+                    </div>
+                    <div class="f-inp">
+                        <input type="password" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="f-inp">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div id="submit-button-cvr">
+                    <button type="submit" id="button">注册</button>
+                </div>
+            </div>
+            <div class="tab-container">
+               <div id="tabs">
+                   <span class="tab active-tab" onclick="showForm('login')">登录</span>
+               </div>
+              </div>
+        </form>
+
+     </div>
+    </div>
+
+    <script>
+        // 切换表单显示
+        function showForm(formId) {
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('register-form').classList.remove('active');
+            document.getElementById(formId + '-form').classList.add('active');
+
+            var tabs = document.getElementById('tabs').getElementsByClassName('tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active-tab');
+            }
+            document.querySelector('#tabs .tab[onclick="showForm(\'' + formId + '\')"]').classList.add('active-tab');
+        }
+    // 登录表单验证
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+
+        var username = document.querySelector('#login-form input[type="text"]').value;
+        var password = document.querySelector('#login-form input[type="password"]').value;
+
+        // 非空验证
+        if (!username || !password) {
+            alert("用户名和密码不能为空！");
+            return;
+        }
+
+        // 检查localStorage中是否有存储的用户数据，并验证
+        var storedData = localStorage.getItem('userData');
+        var userData = storedData ? JSON.parse(storedData) : null;
+
+        if (userData && userData.username === username && userData.password === password) {
+            alert('登录成功！');
+            // 登录成功后重定向到指定页面
+            window.location.href = './charm/musicCharm.html'; // 更改为您的目标页面
+        } else {
+            alert('用户名或密码错误！');
+        }
+    });
+
+    // 注册表单验证
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 首先阻止表单默认提交行为
+
+        var username = document.querySelector('#register-form input[type="text"]').value;
+        var password = document.querySelector('#register-form input[type="password"]').value;
+        var confirmPassword = document.querySelectorAll('#register-form input[type="password"]')[1].value;
+        var email = document.querySelector('#register-form input[type="email"]').value;
+
+        // 用户名、密码和邮箱的非空验证
+        if (!username || !password || !confirmPassword || !email) {
+            alert("所有字段都是必填项！");
+            return;
+        }
+
+        // 密码和确认密码是否匹配
+        if (password !== confirmPassword) {
+            alert("两次输入的密码不匹配！");
+            return;
+        }
+
+        // 简单的邮箱格式验证
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            alert("请输入有效的邮箱地址！");
+            return;
+        }
+
+        // 如果验证通过，则保存数据到localStorage
+        var userData = {
+            username: username,
+            password: password,
+            email: email
+        };
+
+        localStorage.setItem('userData', JSON.stringify(userData));
+        alert('注册成功！');
+    });
+
+    </script>
+</body>
+</html>

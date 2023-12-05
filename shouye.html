@@ -1,154 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Choose</title>
-  <link rel="stylesheet" href="css/style-shouye.css">
-  <link rel="stylesheet" type="text/css" href="css/no.css" />
-  <style>
-  body {
-    margin: 0;
-    padding: 0;
-    /* 设置flex布局 */
-    display: flex;
-    /* 在主轴上居中 */
-    justify-content: center;
-    /* 在测轴上居中 */
-    align-items: center;
-    height: 100vh;
-    /*background-color: #000000;*/
-    /* 透视 */
-    perspective: 900px;
-  }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artists Showcase</title>
+    <link rel="icon" href="image/lable_icon.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(45deg, #e5d598, #ea9fd3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .artist-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .artist-section {
+            background: #fff;
+            margin: 0 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            height: 500px;
+            transition: transform 0.3s ease;
+        }
+
+        .artist-section:hover {
+            transform: scale(1.05);
+        }
+
+        .artist-image {
+            width: 100%;
+            height: auto;
+        }
+
+        .artist-info {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .artist-name {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .artist-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            margin-right: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            font-weight: bold;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            background-color: aliceblue;
+            width: 100%;
+            z-index: 999;
+
+        }
+
+        ul {
+            height: 20px;
+            list-style: none;
+
+        }
+
+        #one {
+            float: left;
+            font-size: larger;
+        }
+
+        #two {
+            float: right;
+            margin-right: 25px;
+        }
+
+        #three {
+            float: right;
+            margin-right: 20px;
+        }
+
+    </style>
+
 </head>
-<body background="image/background9.jpg" style="background-size:100% 100%;">
-  <div class="blocks">
-    <!--<div class="block">
-      <img src="image/ph1.jpg" />
-    </div>
-  
-    <div class="block">
-      <img src="image/ph2.jpg"/>
-    </div>-->
-  
-    <div class="block">
-      <a href="main_website.html"><img src="image/show1.jpg"/></a>
-      <p>周杰伦</p>
-    </div>
-  
-    <div class="block">
-      <a href="main_website_ts.html"><img src="image/showTs1.jpeg"/></a>
-      <p>Taylor Swift</p>
-    </div>
 
-    <div class="block">
-      <a href="main_website_xs.html"><img src="image/showXs2.jpeg"/></a>
-      <p>许嵩</p>
+<body>
+    <div class="topbar">
+        <ul>
+            <li id="one">Music Station</li>
+            <li id="two"><a href="About.html" target="_blank">丨 About 丨</a></li>
+            <li id="three"><a href="joinUs.html" target="_blank">丨 Join us 丨</a></li>
+            <li id="three"><a href="comment.html" target="_blank">丨 Comments 丨</a></li>
+        </ul>
     </div>
+    <div class="artist-container">
+        <a href="main_website.html">
+            <div class="artist-section">
+                <img class="artist-image" src="image/show1.jpg" alt="周杰伦">
+                <div class="artist-info">
+                    <h2 class="artist-name">周杰伦</h2>
+                    <p class="artist-description">周杰伦，亚洲流行音乐的领军人物，以其独特的融合各种音乐风格而著名。他的作品融合了流行音乐与传统中国音乐元素，创造了独树一帜的“周式”音乐。
+                    </p>
+                </div>
+            </div>
+        </a>
+        <a href="main_website_ts.html">
+            <div class="artist-section">
+                <img class="artist-image" src="image/showTs1.jpeg" alt="Taylor Swift">
+                <div class="artist-info">
+                    <h2 class="artist-name">Taylor Swift</h2>
+                    <p class="artist-description">Taylor Swift 是一位美国歌手兼词曲作者，以她的叙事歌曲而闻名，这些歌曲常常从她的个人生活中汲取灵感，并在流行音乐界广受好评。
+                    </p>
+                </div>
+            </div>
+        </a>
+        <a href="main_website_xs.html">
+            <div class="artist-section">
+                <img class="artist-image" src="image/showXs2.jpeg" alt="许嵩">
+                <div class="artist-info">
+                    <h2 class="artist-name">许嵩</h2>
+                    <p class="artist-description">许嵩，中国著名的独立音乐人，以其深情的歌声和才华横溢的作词作曲能力而著称。他的音乐风格多样，从抒情到摇滚，每一首歌都讲述着不同的故事。
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+</body>
 
-    <!--<div class="block">
-      <img src="image/ph6.jpg"/>
-    </div>-->
-
-  <script type="text/javascript">
-    // Below code only for demo purposes
-    // You can remove the `&.hover,` class from the CSS
-    // if you don't need it 
-    $(document).ready(function() {
-      var count = 0;
-      var blocks = $(".block");
-  
-      var testEffect = setInterval(function() {
-      $(blocks[count - 1]).removeClass("hover");
-      $(blocks[count]).addClass("hover");
-      count++;
-      if (count > 4) clearInterval(testEffect);
-      }, 800);
-    });
-  </script>
-  
-  </body>
 </html>
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    .block p{
-      font-size: 30px;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-    }
- 
-    .button {
-      text-decoration: none;
-      position: absolute;
-      left: 90%;
-      top: -70%;
-      /* 右上 */
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-      background-size: 400%;
-      width: 250px;
-      height: 100px;
-      color: #fff;
-      line-height: 100px;
-      text-align: center;
-      /*text-transform: uppercase;*/
-      border-radius: 50px;
-      z-index: 1;
-    }
- 
-    .button::before {
-      content: "";
-      position: absolute;
-      left: -5px;
-      right: -5px;
-      top: -5px;
-      bottom: -5px;
-      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-      background-size: 400%;
-      border-radius: 50px;
-      filter: blur(20px);
-      z-index: -1;
-    }
- 
-    .button:hover::before {
-      animation: sun 8s infinite;
-    }
- 
-    .button:hover {
-      animation: sun 8s infinite;
-    }
- 
-    @keyframes sun {
-      100% {
-        background-position: -400% 0;
-      }
-    }
-    a{
-      text-decoration: none;
-      color: #fff;
-    }
-    /*.footer{
-      position:absolute;
-      width:80%;
-      height:10px;
-      left:10%;
-      top:90%;
-      color:#fff
-    }*/
-  </style>
-</head>
- 
-<div class="button" style="text-align:center;"><a href="comments.html">Add what you like</a></div>
-<!--<div class="footer">This list isn't meant to be comprehensive (by all means, add your own suggestions in the comments section),I'm just taking an opportunity to highlight my personal favorites.</div>-->
-
- 

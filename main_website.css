@@ -161,6 +161,7 @@ footer {
 }
 
 body {
+    min-height: 2000px;
     min-width: 1684px;
     margin: 0;
     padding: 0;
@@ -206,17 +207,13 @@ ul {
     margin-right: 20px;
 }
 
-#four {
-    float: right;
-    margin-right: 25px;
-}
 
 .toppage p {
     float: right;
     font-size: 50px;
     color: aliceblue;
     margin-top: 200px;
-    margin-right: 25%;
+    margin-right: 50vh;
 }
 
 #album {

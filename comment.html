@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #e5d598, #ea9fd3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .message-board {
+            width: 600px;
+            background-color: aliceblue;
+            box-shadow: 0px 15px 40px #b6354e;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            margin: 20px auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .message {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .message:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-content h4 {
+            margin: 0 0 5px 0;
+            font-weight: normal;
+            color: #333;
+        }
+
+        .message-content p {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+        }
+        #messagesDisplay{
+            margin-top: 20px;
+        }
+        #username{
+            width: 96%;
+        }
+        #message{
+            width: 96%;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-board">
+        <h2>留言板</h2>
+        
+        <form id="messageForm">
+            <input type="text" id="username" placeholder="您的姓名">
+            <textarea id="message" placeholder="留言内容"></textarea>
+            <button type="submit">提交留言</button>
+        </form>
+
+        <!-- 留言展示区域 -->
+        <div id="messagesDisplay">
+            <!-- 这里可以添加示例留言或通过 JavaScript 动态生成留言 -->
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('messageForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var username = document.getElementById('username').value.trim();
+        var message = document.getElementById('message').value.trim();
+        var messagesDisplay = document.getElementById('messagesDisplay');
+
+        if(username && message) {
+            var messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+
+            var currentDate = new Date();
+            var timestamp = currentDate.getHours() + ':' + currentDate.getMinutes();
+
+            messageDiv.innerHTML = `
+                <div class="avatar"></div>
+                <div class="message-content">
+                    <h4>${username} <span style="font-size: 0.8em; color: #888;">${timestamp}</span></h4>
+                    <p>${message}</p>
+                </div>
+            `;
+
+            messagesDisplay.prepend(messageDiv); // 将新留言添加到顶部
+
+            // 清空表单
+            document.getElementById('username').value = '';
+            document.getElementById('message').value = '';
+        } else {
+            alert('请填写姓名和留言内容！');
+        }
+    });
+</script>
+    </script>
+</body>
+</html>

@@ -1,43 +1,133 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>加入我们</title>
-        <link rel="icon" href="image\lable_icon.png" type="image/png">
-    </head>
-    <body>
-        <h2 id="top">项目初衷</h1>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入我们</title>
+    <style>
+        .topbar a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .topbar a:hover {
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            background-color: aliceblue;
+            width: 100%;
+            z-index: 999;
+
+        }
+
+        ul {
+            height: 20px;
+            list-style: none;
+
+        }
+
+        #one {
+            float: left;
+            font-size: larger;
+        }
+
+        #two {
+            float: right;
+            margin-right: 25px;
+        }
+
+        #three {
+            float: right;
+            margin-right: 20px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #e5d598, #ea9fd3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            background-color: #fff;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1em;
+            text-indent: 15px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <ul>
+            <li id="one">Music Station</li>
+            <li id="two"><a href="About.html" target="_blank">丨 About 丨</a></li>
+            <li id="three"><a href="joinUs.html" target="_blank">丨 Join us 丨</a></li>
+            <li id="three"><a href="comment.html" target="_blank">丨 Comments 丨</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h2 id="top">项目初衷</h2>
         <p>不知从何时起，音乐已经变成了人们刷手机时的背景音乐，相较于完整地听完一张专辑，人们似乎更喜欢音乐软件中的个性推荐。但我坚信一张专辑才是创作者最想让听众听到的，所以我便萌生了自己做一个网站的想法，希望人们能在忙碌的生活中，去认真欣赏一张完整的专辑。
         </p>
         <h2>待完善</h2>
-        <p>由于时间原因，网站目前仅收录了三位歌手，我们希望将来能够收录更多的歌手。将网站做成一个小型音乐库，让人们在忙碌的学习生活中能够不受打扰地去欣赏音乐。
-        </p>
-        <h1><a  target="_blank" href="About.html">欢迎你的加入</a></h1>
-    </body>
-    <style>
-        body{
-            min-width: 1684px;
-            background-image: url("image/join_background.jpg");
-            background-size: 1684px;
-            background-position:0px -200px ;
-        }
-        a{
-            color: black;
-        }
-        #top{
-            margin-top: 100px;
-        }
-        h2{
-            text-align: center;
-        }
-        h1{
-            margin-top: 100px;
-            text-align: center;
-        }
-        p{
-            text-indent: 20px;
-            margin-left: 400px;
-            margin-right: 400px;
-        }
-    </style>
+        <p>由于时间原因，网站目前仅收录了三位歌手，我们希望将来能够收录更多的歌手。将网站做成一个音乐库，让人们在忙碌的学习生活中能够不受打扰地去欣赏音乐。</p>
+        <h1><a target="_blank" href="About.html">欢迎你的加入</a></h1>
+    </div>
+</body>
+
 </html>
